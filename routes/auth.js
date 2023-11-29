@@ -10,6 +10,6 @@ router.get('/',[
     const user=User(req.body)
     user.save()
     res.send(req.body)
-
+    console.log('hello world');
 })
 module.exports=router
