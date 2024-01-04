@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.icon-shadow {
+  @apply hover:shadow-md hover:-translate-y-px hover:transition-transform;
+}
