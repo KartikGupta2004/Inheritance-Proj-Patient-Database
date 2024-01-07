@@ -8,6 +8,6 @@ import RecordForm from "./Components/RecordForm.jsx";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RecordForm/>
+    <Features/>
   </React.StrictMode>
 );

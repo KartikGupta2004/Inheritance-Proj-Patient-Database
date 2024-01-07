@@ -1,6 +1,6 @@
 import React from "react";
 
-import chooseFile from "D:/All Programs/Inheritance/med-id/src/icons/add.png";
+import chooseFile from "../icons/add.png";
 const RecordForm = () => {
   return (
     <>

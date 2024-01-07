@@ -2,7 +2,7 @@ import React from 'react'
 
 import { featureList } from "./RecordsList.jsx";
 import Icon from "./Icon.jsx";
-import history from "D:/All Programs/Inheritance/med-id/src/icons/history.png";
+import history from "../icons/history.png";
 
 const Features = (props) => {
   return (

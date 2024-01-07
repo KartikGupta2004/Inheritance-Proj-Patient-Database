@@ -1,13 +1,14 @@
-import stethoscope from "D:/All Programs/Inheritance/med-id/src/icons/stethoscope.png";
-import family from "D:/All Programs/Inheritance/med-id/src/icons/family.png";
-import vaccine from "D:/All Programs/Inheritance/med-id/src/icons/vaccine.png";
-import allergy from "D:/All Programs/Inheritance/med-id/src/icons/allergy.png";
-import bloodPressure from "D:/All Programs/Inheritance/med-id/src/icons/bloodpressure.png";
-import bloodGlucose from "D:/All Programs/Inheritance/med-id/src/icons/bloodglucose.png";
-import o2Sat from "D:/All Programs/Inheritance/med-id/src/icons/oxygen-saturation.png";
-import exam from "D:/All Programs/Inheritance/med-id/src/icons/examination.png";
-import labTest from "D:/All Programs/Inheritance/med-id/src/icons/lab-tests.png";
-import prescription from "D:/All Programs/Inheritance/med-id/src/icons/prescription.png";
+import stethoscope from "../icons/stethoscope.png";
+import family from "../icons/family.png";
+import vaccine from "../icons/vaccine.png";
+import allergy from "../icons/allergy.png";
+import bloodPressure from "../icons/bloodpressure.png";
+import bloodGlucose from "../icons/bloodglucose.png";
+import o2Sat from "../icons/oxygen-saturation.png";
+import exam from "../icons/examination.png";
+import labTest from "../icons/lab-tests.png";
+import prescription from "../icons/prescription.png";
+
 
 export const featureList = [
   {
