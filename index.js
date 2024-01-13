@@ -1,8 +1,10 @@
 const connectToMongo=require('./db')
 const express = require('express')
+const morgan=require('morgan')
 
 const app = express()
 const port = 5000
+app.use(morgan('combined'))
 app.use(express.json())
 app.use('/api/auth',require('./routes/auth'))
 app.use('/api/notes',require('./routes/notes'))

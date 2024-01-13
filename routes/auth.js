@@ -5,7 +5,8 @@ const { body, validationResult } = require('express-validator');
 const bcrypt=require('bcryptjs')
 const jwt=require('jsonwebtoken')
 const fetchuser=require('../middleware/fetchuser.js')
-const JWT_SECRET='Divyanshuisagoodboy'
+require('dotenv').config();
+const JWT_SECRET=process.env.JWT_SECRET;
 //ROUTE1:Create a User using:POST "/api/auth/createuser".Doesnt require auth
 router.post('/createuser/',[
     body('name','Enter a valid name').isLength({min:3}),
@@ -88,15 +89,17 @@ router.post('/login/',[
     }
 })
 // ROUTE3:Get logged in User Details using POST "/api/auth/getuser" Login required 
-router.post('/getuser/',fetchuser,async(req,res)=>{
+router.post('/getuser/', fetchuser, async (req,res) => {
 try{
     userID=req.user.id
     const user=await User.findById(userID).select("-password")
     res.send(user)
+    console.log(user)
 
 }catch(err){
       console.error(err.message)
     res.status(500).send('Internal server error')
 }
+
 })
 module.exports=router 
