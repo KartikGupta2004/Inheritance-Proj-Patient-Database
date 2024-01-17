@@ -5,3 +5,7 @@
 .icon-shadow {
   @apply hover:shadow-md hover:-translate-y-px hover:transition-transform;
 }
+
+* {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
