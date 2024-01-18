@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { MapContainer, TileLayer } from "react-leaflet";
+import  maptiler  from "./MapTiler.jsx"
+import "leaflet/dist/leaflet.css"
 
 function MyLocation() {
-  const [position, setPosition] = useState({ lat: 0, lng: 0});
-
+  const [position, setPosition] = useState({ lat: 19.206694262101415, lng:72.87257312147827 });
+  const mapRef = useRef;
+  const ZOOM_LEVEL = 15;
   useEffect(() => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(function (position) {
@@ -15,17 +19,6 @@ function MyLocation() {
       console.log("Geolocation is not available in your browser.");
     }
   }, []);
-
-  let map;
-
-  async function initMap(position) {
-    const { Map } = await google.maps.importLibrary("maps");
-
-    map = new Map(document.getElementById("map"), {
-      center: {lat:+position.lat, lng:+position.lng},
-      zoom: 8,
-    });
-  }
 
   let locList = [
     "Lorem ipsum dolor sit, amet consectetur adipisicing elit.",
@@ -54,12 +47,15 @@ function MyLocation() {
             })}
           </ul>
         </div>
-        <div className='w-1/2 h-full p-2 flex justify-center box-border' id="map">
+        <div className='w-1/2 h-full p-2 flex justify-center box-border'>
           {/* <img
             className='flex-shrink'
             src='https://i.pinimg.com/736x/b0/99/77/b099774c41f2995aa16282dcb105f439.jpg'
             alt='none'
           /> */}
+          <MapContainer center = {position} zoom = {ZOOM_LEVEL}>
+            <TileLayer url = {maptiler.url} attribution ={maptiler.attribution} />
+          </MapContainer>
         </div>
       </section>
     </main>

@@ -9,3 +9,7 @@
 * {
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
+
+.leaflet-container{
+  @apply h-full w-full;
+}
