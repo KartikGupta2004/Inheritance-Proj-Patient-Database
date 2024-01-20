@@ -218,9 +218,11 @@ nav .icon{
     position: absolute;
     top: 45%;
     left: 50%;
+    margin: auto;
     transform: translate(-50%,-50%);
     text-align: center;
-    padding: 30px;
+    padding-top: 100px;
+    padding-bottom: 30px;
 }
 
 .map_text h1{
@@ -231,6 +233,12 @@ nav .icon{
 .map_text p{
     margin: 10px 0 40px;
     font-size: 20px;
+}
+@media(max-width: 700px){
+    .map_text h1{
+        font-size: 25px;
+        font-weight: 600;
+    }
 }
 
 .additional_features{
