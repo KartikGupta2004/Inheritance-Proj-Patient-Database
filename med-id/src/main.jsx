@@ -7,6 +7,7 @@ import MedicalVisitForm from "./Components/MedicalVisitForm.jsx";
 import MyLocation from "./Components/MyLocation.jsx";
 import PrescriptionForm from "./Components/PrescriptionForm.jsx";
 import BloodGlucoseForm from "./Components/BloodGlucoseForm.jsx";
+import BloodPressureForm from "./Components/BloodPressureForm.jsx";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -14,6 +15,7 @@ root.render(
     {/* <MedicalVisitForm/> */}
     {/* <MyLocation/> */}
     {/* <PrescriptionForm/> */}
-    <BloodGlucoseForm />
+    {/* <BloodGlucoseForm /> */}
+    <BloodPressureForm />
   </React.StrictMode>
 );
