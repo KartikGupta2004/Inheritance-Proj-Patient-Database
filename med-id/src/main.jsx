@@ -3,13 +3,17 @@ import ReactDOM from "react-dom/client";
 
 import "./index.css";
 import Features from "./Components/Features.jsx";
-import RecordForm from "./Components/RecordForm.jsx";
+import MedicalVisitForm from "./Components/MedicalVisitForm.jsx";
 import MyLocation from "./Components/MyLocation.jsx";
+import PrescriptionForm from "./Components/PrescriptionForm.jsx";
+import BloodGlucoseForm from "./Components/BloodGlucoseForm.jsx";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     {/* <Features /> */}
-    {/* <RecordForm/> */}
-    <MyLocation/>
+    {/* <MedicalVisitForm/> */}
+    {/* <MyLocation/> */}
+    {/* <PrescriptionForm/> */}
+    <BloodGlucoseForm />
   </React.StrictMode>
 );
