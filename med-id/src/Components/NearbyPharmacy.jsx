@@ -3,7 +3,7 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import  maptiler  from "./MapTiler.jsx"
 import "leaflet/dist/leaflet.css"
 
-function MyLocation() {
+function NearbyPharmacy() {
   const [position, setPosition] = useState({ lat: 19.206694262101415, lng:72.87257312147827 });
   const mapRef = useRef;
   const ZOOM_LEVEL = 15;
@@ -48,11 +48,6 @@ function MyLocation() {
           </ul>
         </div>
         <div className='w-1/2 h-full p-2 flex justify-center box-border'>
-          {/* <img
-            className='flex-shrink'
-            src='https://i.pinimg.com/736x/b0/99/77/b099774c41f2995aa16282dcb105f439.jpg'
-            alt='none'
-          /> */}
           <MapContainer center = {position} zoom = {ZOOM_LEVEL}>
             <TileLayer url = {maptiler.url} attribution ={maptiler.attribution} />
           </MapContainer>
@@ -62,4 +57,4 @@ function MyLocation() {
   );
 }
 
-export default MyLocation;
+export default NearbyPharmacy;
