@@ -1,29 +1,68 @@
-import {React, useState} from "react";
+import { React, useState } from "react";
 import chooseFile from "../icons/add.png";
 import doctor from "../icons/doctor.png";
 
+//NEED TO MODIFY SYMPTOMS AND DIAGNOSES FUNCTIONALITY --- DONE
+//CLOUDINARY
+
 const Examination = () => {
-  const [syms, setSyms] = useState([]);
-  const [diags, setDiags] = useState([]);
-  let symptom="", diagnosis="";
+  const [data, setData] = useState({
+    symptoms: [],
+    diagnoses: [],
+    file: null,
+    temperature: "",
+    tempunit: "c",
+    weight: "",
+    weightunit: "kg",
+    height: "",
+    heightunit: "in",
+    date: "",
+    doctor: "",
+    note: ""
+  })
+  let symptom = "", diagnosis = "";
+  const handleFileUpload = (e) => {
+    setData({ ...data, file: e.target.files[0] })
+  }
   const handleAddSym = (e) => {
-    e.preventDefault();
     if (!symptom) return;
-    setSyms((curr) => [...curr, symptom]);
+    setData({ ...data, symptoms: [...data.symptoms, symptom] });
     document.getElementById("symptom").value = "";
   };
   const handleDeleteSym = (sym) => {
-    setSyms((curr) => curr.splice(curr.indexOf(sym), 1));
+    const newSymp = data.symptoms.filter((s) => s !== sym);
+    setData({ ...data, symptoms: newSymp });
   };
   const handleAddDiag = (e) => {
-    e.preventDefault();
     if (!diagnosis) return;
-    setDiags((curr) => [...curr, diagnosis]);
+    setData({ ...data, diagnoses: [...data.diagnoses, diagnosis] });
     document.getElementById("diagnosis").value = "";
   };
   const handleDeleteDiag = (diag) => {
-    setDiags((curr) => curr.splice(curr.indexOf(diag), 1));
+    const newDiags = data.diagnoses.filter((d) => d !== diag);
+    setData({ ...data, diagnoses: newDiags });
   };
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(data);
+    setData({
+      symptoms: [],
+      diagnoses: [],
+      file: null,
+      temperature: "",
+      tempunit: "℉",
+      weight: "",
+      weightunit: "kg",
+      height: "",
+      heightunit: "in",
+      date: "",
+      doctor: "",
+      note: ""
+    })
+  }
   return (
     <div className='flex justify-center items-center h-full box-border'>
       <main className='flex justify-center items-center w-full h-fit box-border flex-col bg-stone-100'>
@@ -33,6 +72,7 @@ const Examination = () => {
         <section className='p-6 box-border h-fit'>
           <form
             action=''
+            onSubmit={handleSubmit}
             className='grid gap-2 sm:grid-cols-2 box-border place-content-evenly'
           >
             <span className='flex sm:col-span-2 justify-center'>
@@ -41,15 +81,17 @@ const Examination = () => {
                 className='w-fit flex flex-col items-center cursor-pointer bg-white rounded-lg p-4 border border-black'
               >
                 <img src={chooseFile} alt='Choose File' className='w-8 h-8' />
-                <p>Upload File</p>
+                <p>{data.file ? "Change File" : "Upload File"}</p>
                 <input
                   type='file'
                   name='file'
                   id='file'
                   accept='image/* , .pdf , .docx , .doc'
                   className='hidden'
+                  onChange={handleFileUpload}
                   required
                 />
+                {data.file && (<p className="text-sm"> File: {data.file.name}</p>)}
               </label>
             </span>
             <span>
@@ -62,6 +104,8 @@ const Examination = () => {
                 id='temperature'
                 className='rounded-lg px-2'
                 required
+                value={data.temperature}
+                onChange={handleChange}
               />
             </span>
             <span>
@@ -73,9 +117,11 @@ const Examination = () => {
                 id='tempunit'
                 className='rounded-lg px-8'
                 required
+                onChange={handleChange}
+                value={data.tempunit}
               >
-                <option value='c'>℃</option>
-                <option value='f'>℉</option>
+                <option value='℃'>℃</option>
+                <option value='℉'>℉</option>
               </select>
             </span>
             <span>
@@ -87,6 +133,8 @@ const Examination = () => {
                 name='weight'
                 id='weight'
                 className='rounded-lg px-2'
+                onChange={handleChange}
+                value={data.weight}
                 required
               />
             </span>
@@ -98,6 +146,8 @@ const Examination = () => {
                 name='weightunit'
                 id='weightunit'
                 className='rounded-lg px-8'
+                onChange={handleChange}
+                value={data.weightunit}
                 required
               >
                 <option value='kg'>kg</option>
@@ -113,6 +163,8 @@ const Examination = () => {
                 name='height'
                 id='height'
                 className='rounded-lg px-2'
+                onChange={handleChange}
+                value={data.height}
                 required
               />
             </span>
@@ -124,9 +176,11 @@ const Examination = () => {
                 name='heightunit'
                 id='heightunit'
                 className='rounded-lg px-8'
+                onChange={handleChange}
+                value={data.heightunit}
                 required
               >
-                <option value='ftin'>in</option>
+                <option value='in'>in</option>
                 <option value='cm'>cm</option>
               </select>
             </span>
@@ -139,6 +193,8 @@ const Examination = () => {
                 name='date'
                 id='date'
                 className='w-full rounded-lg px-2'
+                onChange={handleChange}
+                value={data.date}
                 required
               />
             </span>
@@ -153,7 +209,6 @@ const Examination = () => {
                   id='symptom'
                   onChange={(e) => (symptom = e.target.value)}
                   className='bg-white rounded-lg form-input p-2 w-4/6'
-                  required
                 />
                 <button
                   type='button'
@@ -163,10 +218,10 @@ const Examination = () => {
                   Add
                 </button>
               </div>
-              {syms.toString() && (
+              {data.symptoms.toString() && (
                 <div className='bg-white rounded-lg px-2'>
                   <ul>
-                    {syms.map((sym, id) => {
+                    {data.symptoms.map((sym, id) => {
                       return (
                         <li key={id} className='flex flex-row justify-evenly'>
                           <span className='border-b-2 border-rose-400 w-4/6 text-center'>
@@ -199,7 +254,6 @@ const Examination = () => {
                   id='diagnosis'
                   onChange={(e) => (diagnosis = e.target.value)}
                   className='bg-white rounded-lg form-input p-2 w-4/6'
-                  required
                 />
                 <button
                   type='button'
@@ -209,10 +263,10 @@ const Examination = () => {
                   Add
                 </button>
               </div>
-              {diags.toString() && (
+              {data.diagnoses.toString() && (
                 <div className='bg-white rounded-lg px-2'>
                   <ul>
-                    {diags.map((diag, id) => {
+                    {data.diagnoses.map((diag, id) => {
                       return (
                         <li key={id} className='flex flex-row justify-evenly'>
                           <span className='border-b-2 border-rose-400 w-4/6 text-center'>
@@ -243,6 +297,8 @@ const Examination = () => {
                 name='doctor'
                 id='doctor'
                 className='form-text rounded-lg px-4 w-full'
+                onChange={handleChange}
+                value={data.doctor}
                 required
               />
             </span>
@@ -262,10 +318,12 @@ const Examination = () => {
                 cols='43'
                 rows='1'
                 className='form-textarea rounded-lg px-2 resize-none box-border shrink w-full'
+                onChange={handleChange}
+                value={data.note}
               />
             </span>
             <span className='flex justify-center sm:col-span-2'>
-              <button className='rounded-full font-bold text-lg px-4 py-2 bg-rose-400 text-white'>
+              <button type='submit' className='rounded-full font-bold text-lg px-4 py-2 bg-rose-400 text-white'>
                 Save Record
               </button>
             </span>

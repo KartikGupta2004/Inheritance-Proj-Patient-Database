@@ -1,6 +1,29 @@
-import React from "react";
+import React, {useState} from "react";
 import doctor from '../icons/doctor.png';
 const MedicalVisitForm = () => {
+  const [data, setData] = useState({
+    date:"",
+    time:"",
+    type:"",
+    doctor:"",
+    note:""
+  })
+
+  const handleChange = (e) =>{
+    setData({...data, [e.target.name]:e.target.value});
+  }
+
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    console.log(data);
+    setData({
+      date:"",
+      time:"",
+      type:"",
+      doctor:"",
+      note:""
+    });
+  }
   return (
     <div className='flex justify-center items-center h-screen box-border'>
       <main className='flex justify-center items-center w-full h-fit box-border flex-col bg-stone-100'>
@@ -11,6 +34,7 @@ const MedicalVisitForm = () => {
           <form
             action=''
             className='grid gap-2 sm:grid-cols-2 box-border place-content-evenly'
+            onSubmit={handleSubmit}
           >
             <span>
               <label htmlFor='date' className='block'>
@@ -22,6 +46,7 @@ const MedicalVisitForm = () => {
                 id='date'
                 className='form-date rounded-lg px-2'
                 required
+                onChange={handleChange}
               />
             </span>
             <span>
@@ -33,12 +58,13 @@ const MedicalVisitForm = () => {
                 name='time'
                 id='time'
                 className='form-time rounded-lg px-2'
+                onChange={handleChange}
               />
             </span>
             <span className='sm:col-span-2'>
-              <label htmlFor='type' className='block'>
+              <p className='block'>
                 Type:
-              </label>
+              </p>
               <div className='flex justify-evenly'>
                 <span className='bg-white rounded-lg py-2 px-4 m-2'>
                   <input
@@ -48,6 +74,7 @@ const MedicalVisitForm = () => {
                     id='new'
                     value='new'
                     required
+                    onChange={handleChange}
                   />
                   <label htmlFor='new' className=''>
                     New
@@ -61,6 +88,7 @@ const MedicalVisitForm = () => {
                     id='followup'
                     value='followup'
                     required
+                    onChange={handleChange}
                   />
                   <label htmlFor='followup'>Follow Up</label>
                 </span>
@@ -76,6 +104,7 @@ const MedicalVisitForm = () => {
                 id='doctor'
                 className='form-text rounded-lg px-4 w-full'
                 required
+                onChange={handleChange}
               />
             </span>
             <span className='flex items-end justify-around'>
@@ -94,6 +123,7 @@ const MedicalVisitForm = () => {
                 cols='43'
                 rows='1'
                 className='form-textarea rounded-lg px-2 resize-none box-border shrink'
+                onChange={handleChange}
               />
             </span>
             <span className='flex justify-center sm:col-span-2'>

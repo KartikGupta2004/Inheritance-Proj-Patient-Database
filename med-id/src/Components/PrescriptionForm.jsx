@@ -2,21 +2,51 @@ import { React, useState } from "react";
 import chooseFile from "../icons/add.png";
 import doctor from "../icons/doctor.png";
 
+//CHANGE DRUG --- DONE
+// FILE UPLOAD USING CLOUDINARY
+
 const PrescriptionForm = () => {
-  const [drug, setDrug] = useState([]);
+  const [data, setData] = useState(
+    {
+      drugs: [],
+      file: null,
+      date: "",
+      doctor: "",
+      note: ""
+    })
   const drugTrack = {
     drug: "",
     dose: "",
   };
-  const handleAdd = (e) => {
+
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  }
+  const handleFileUpload = (e) => {
+    setData({ ...data, file: e.target.files[0] })
+  }
+  const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(data);
+    setData({
+      drugs: [],
+      file: null,
+      date: "",
+      doctor: "",
+      note: ""
+    });
+  }
+  const handleAdd = (e) => {
     if (drugTrack.dose === "" || drugTrack.drug === "") return;
-    setDrug((curr) => [...curr, drugTrack]);
+    setData({ ...data, drugs: [...data.drugs, drugTrack] });
     document.getElementById("drug").value = "";
     document.getElementById("dose").value = "";
   };
   const handleDelete = (drugBox) => {
-    setDrug((curr) => curr.splice(curr.indexOf(drugBox), 1));
+    const newDrugs = data.drugs.filter((d) => {
+      return JSON.stringify(d) !== JSON.stringify(drugBox);
+    })
+    setData({ ...data, drugs: newDrugs });
   };
   return (
     <div className='flex justify-center items-center h-full w-full'>
@@ -27,6 +57,7 @@ const PrescriptionForm = () => {
         <section className='p-6 box-border h-fit'>
           <form
             action=''
+            onSubmit={handleSubmit}
             className='grid gap-2 sm:grid-cols-2 box-border place-content-center max-w-5/6'
           >
             <span className='flex sm:col-span-2 justify-center'>
@@ -35,15 +66,16 @@ const PrescriptionForm = () => {
                 className='w-fit flex flex-col items-center cursor-pointer bg-white rounded-lg p-4 border border-black'
               >
                 <img src={chooseFile} alt='Choose File' className='w-8 h-8' />
-                <p>Upload Prescription</p>
+                <p>{data.file ? "Change File": "Upload Prescription"}</p>
                 <input
                   type='file'
                   name='file'
                   id='file'
                   accept='image/* , .pdf , .docx , .doc'
                   className='hidden'
-                  required
+                  onChange={handleFileUpload}
                 />
+                {data.file && (<p className="text-sm"> File: {data.file.name}</p>)}
               </label>
             </span>
             <span className='flex flex-col sm:col-span-2'>
@@ -55,7 +87,6 @@ const PrescriptionForm = () => {
                   placeholder='Drug'
                   onChange={(e) => (drugTrack.drug = e.target.value)}
                   className='bg-white rounded-lg form-input p-2 flex-auto'
-                  required
                 />
                 <input
                   type='text'
@@ -64,7 +95,6 @@ const PrescriptionForm = () => {
                   placeholder='Dose'
                   onChange={(e) => (drugTrack.dose = e.target.value)}
                   className='bg-white rounded-lg form-input p-2 flex-auto'
-                  required
                 />
                 <button
                   type='button'
@@ -74,10 +104,10 @@ const PrescriptionForm = () => {
                   Add
                 </button>
               </div>
-              {drug.toString() && (
+              {data.drugs.toString() && (
                 <div className='bg-white rounded-lg'>
                   <ul>
-                    {drug.map((drugBox, id) => {
+                    {data.drugs.map((drugBox, id) => {
                       return (
                         <li key={id} className='flex flex-row justify-evenly capitalize'>
                           <span className='border-b-2 border-rose-400 w-2/6 text-center'>
@@ -111,6 +141,8 @@ const PrescriptionForm = () => {
                 name='date'
                 id='date'
                 className='w-full rounded-lg px-2'
+                onChange={handleChange}
+                value={data.date}
                 required
               />
             </span>
@@ -123,6 +155,8 @@ const PrescriptionForm = () => {
                 name='doctor'
                 id='doctor'
                 className='form-text rounded-lg px-4 w-full'
+                onChange={handleChange}
+                value={data.doctor}
                 required
               />
             </span>
@@ -141,11 +175,13 @@ const PrescriptionForm = () => {
                 id='note'
                 cols='30'
                 rows='1'
+                onChange={handleChange}
+                value={data.note}
                 className='form-textarea rounded-lg px-2 resize-none box-border flex-auto w-full'
               />
             </span>
             <span className='flex justify-center sm:col-span-2'>
-              <button className='rounded-full font-bold text-lg px-4 py-2 bg-rose-400 text-white'>
+              <button type='submit' className='rounded-full font-bold text-lg px-4 py-2 bg-rose-400 text-white'>
                 Save Record
               </button>
             </span>

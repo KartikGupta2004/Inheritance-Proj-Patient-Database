@@ -1,6 +1,31 @@
-import React from "react";
+import React,{useState} from "react";
 
 const BloodPressureForm = () => {
+  const [data, setData] = useState({
+    systolic:120, 
+    diastolic:80, 
+    pulse:80,
+    date:"",
+    time:"",
+    note:""
+  })
+  
+  const handleChange = (e) =>{
+    setData({...data, [e.target.name]:e.target.value});
+  }
+
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    console.log(data);
+    setData({
+      systolic:120, 
+      diastolic:80, 
+      pulse:80,
+      date:"",
+      time:"",
+      note:""
+    })
+  }
   return (
     <main className='flex justify-center items-center w-screen h-full box-border'>
       <div className='flex justify-center items-center w-full h-fit box-border flex-col bg-stone-100'>
@@ -10,6 +35,7 @@ const BloodPressureForm = () => {
         <section className='p-6 box-border w-5/6 h-fit flex-grow'>
           <form
             action=''
+            onSubmit={handleSubmit}
             className='flex flex-col justify-center items-center gap-2'
           >
             <div className='flex justify-center flex-row box-border bg-white rounded-lg w-4/5'>
@@ -28,6 +54,7 @@ const BloodPressureForm = () => {
                   min={40}
                   max={400}
                   defaultValue={120}
+                  onChange={handleChange}
                 />
               </span>
               <span className='flex items-center justify-center flex-col flex-grow'>
@@ -45,6 +72,7 @@ const BloodPressureForm = () => {
                   min={40}
                   max={400}
                   defaultValue={80}
+                  onChange={handleChange}
                 />
               </span>
               <span className='flex items-center justify-center flex-col border-l-2 border-stone-600 flex-grow'>
@@ -62,6 +90,7 @@ const BloodPressureForm = () => {
                   min={25}
                   max={250}
                   defaultValue={80}
+                  onChange={handleChange}
                 />
               </span>
             </div>
@@ -76,6 +105,7 @@ const BloodPressureForm = () => {
                   id='date'
                   className='form-input rounded-lg px-2'
                   required
+                  onChange={handleChange}
                 />
               </span>
               <span>
@@ -88,6 +118,7 @@ const BloodPressureForm = () => {
                   id='time'
                   className='form-input rounded-lg px-2'
                   required
+                  onChange={handleChange}
                 />
               </span>
             </div>
@@ -101,10 +132,11 @@ const BloodPressureForm = () => {
                 cols='30'
                 rows='2'
                 className='form-textarea rounded-lg grow resize-none'
+                onChange={handleChange}
               ></textarea>
             </div>
             <div className='flex justify-center'>
-              <button className='rounded-full font-bold text-lg px-4 py-2 bg-rose-400 text-white'>
+              <button type='submit' className='rounded-full font-bold text-lg px-4 py-2 bg-rose-400 text-white'>
                 Save Record
               </button>
             </div>

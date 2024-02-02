@@ -1,6 +1,29 @@
-import React from "react";
+import React, {useState} from "react";
 
 const OxygenSat = () => {
+  const [data, setData] = useState({
+    result:98,
+    pulse:80,
+    date:"",
+    time:"",
+    note:""
+  })
+  
+  const handleChange = (e) =>{
+    setData({...data, [e.target.name]:e.target.value});
+  }
+
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    console.log(data);
+    setData({
+      result:98,
+      pulse:80,
+      date:"",
+      time:"",
+      note:""
+    });
+  }
   return (
     <main className='flex justify-center items-center w-full h-full box-border'>
       <div className='flex justify-center items-center w-full h-fit box-border flex-col bg-stone-100'>
@@ -10,6 +33,7 @@ const OxygenSat = () => {
         <section className='p-6 box-border w-5/6 h-fit flex-grow'>
           <form
             action=''
+            onSubmit={handleSubmit}
             className='flex flex-col justify-center items-center gap-2'
           >
             <div className='flex justify-center flex-row box-border bg-white rounded-lg w-4/5'>
@@ -27,7 +51,8 @@ const OxygenSat = () => {
                   className='form-input w-full border-0 bg-inherit text-center focus:ring-0'
                   min={90}
                   max={100}
-                  defaultValue={98}
+                  onChange={handleChange}
+                  value={data.result}
                   onKeyDown={() => false}
                 />
               </span>
@@ -45,7 +70,8 @@ const OxygenSat = () => {
                   className='form-input w-full border-none bg-inherit border-l-2 text-center focus:ring-0'
                   min={25}
                   max={250}
-                  defaultValue={80}
+                  onChange={handleChange}
+                  value={data.pulse}
                 />
               </span>
             </div>
@@ -59,6 +85,8 @@ const OxygenSat = () => {
                   name='date'
                   id='date'
                   className='form-input rounded-lg px-2'
+                  value={data.date}
+                  onChange={handleChange}
                   required
                 />
               </span>
@@ -71,6 +99,8 @@ const OxygenSat = () => {
                   name='time'
                   id='time'
                   className='form-input rounded-lg px-2'
+                  value={data.time}
+                  onChange={handleChange}
                   required
                 />
               </span>
@@ -85,10 +115,12 @@ const OxygenSat = () => {
                 cols='30'
                 rows='2'
                 className='form-textarea rounded-lg grow resize-none'
+                value={data.note}
+                onChange={handleChange}
               ></textarea>
             </div>
             <div className='flex justify-center'>
-              <button className='rounded-full font-bold text-lg px-4 py-2 bg-rose-400 text-white'>
+              <button type='submit' className='rounded-full font-bold text-lg px-4 py-2 bg-rose-400 text-white'>
                 Save Record
               </button>
             </div>
