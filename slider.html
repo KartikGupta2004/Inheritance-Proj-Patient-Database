@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <style>
+  .c-item {
+      height: 100vh;
+      /* object-fit: cover; */
+  }
+  .c-img {
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.6);
+  }
+  @media (max-width:400px) {
+    #caption{
+      font-size: 10px;
+    }
+  }
+  /* .carousel */
+  </style>
+
+  <title>News Slide</title>
+</head>
+<body>
+  <section class="newslider">
+  <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel" >
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+
+    <div class="carousel-inner" style="padding-top: 0;">
+      <div class="carousel-item active c-item">
+        <img class="d-block w-100 c-img" alt="Slide 1" id="slide1_img">
+        <div class="carousel-caption top-0 mt-4" id="caption">
+          <p class="mt-5 fs-3 fw-bolder" id="slide1_head"></p>
+          <h1 class="mt-5 fs-3" id="slide1_desc"></h1>
+          <a href="news.html"><button class="btn btn-primary px-4 py-2 fs-5 mt-5">Get Latest News</button></a>
+        </div>
+      </div>
+      <div class="carousel-item c-item">
+        <img class="d-block w-100 c-img" alt="Slide 2" id="slide2_img">
+        <div class="carousel-caption top-0 mt-4">
+          <p class="mt-5 fs-3 fw-bolder" id="slide2_head"></p>
+          <h1 class="mt-5 fs-3" id="slide2_desc"></h1>
+          <a href="news.html"><button class="btn btn-primary px-4 py-2 fs-5 mt-5" data-bs-toggle="modal"
+            data-bs-target="#booking-modal" >Get Latest News</button></a>
+        </div>
+      </div>
+      <div class="carousel-item c-item">
+        <img class="d-block w-100 c-img" alt="Slide 3" id="slide3_img">
+        <div class="carousel-caption top-0 mt-4">
+          <p class="mt-5 fs-3 fw-bolder" id="slide3_head"></p>
+          <h1 class="mt-5 fs-3" id="slide3_desc"></h1> 
+          <a href="news.html"><button class="btn btn-primary px-4 py-2 fs-5 mt-5" data-bs-toggle="modal"
+            data-bs-target="#booking-modal">Get Latest News</button></a>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </section>
+    <script>
+      url =   'https://newsapi.org/v2/top-headlines?'+
+        'country=in&'+
+        'category=health&'+
+        'apiKey=cd147b5e8e1f453d9055367c17437d34' 
+
+fetch(url)
+  .then(response => {
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    
+    return response.json();
+  })
+  .then(data => {
+    
+
+    let something = data.articles;
+    let i=0;
+    let list = [];
+    while(i<20){
+        // 
+        if(something[i].source.name!=="YouTube" && something[i].urlToImage !== null){
+            list.push(something[i]);
+        }
+        i++;
+    }
+    let m=1;
+    while(m<4){
+      document.getElementById(`slide${m}_img`).src = list[m].urlToImage;
+      document.getElementById(`slide${m}_head`).innerText = list[m].title;
+      document.getElementById(`slide${m}_desc`).innerText = list[m].description;
+      m++;
+    }
+
+  })
+  .catch(error => {
+    // Handle errors
+    console.error('Fetch error:', error);
+  });
+
+    </script>
+  </div>
+</body>
+</html>
