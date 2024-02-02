@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Features, MedicalVisitForm, NearbyPharmacy, PrescriptionForm, BloodGlucoseForm, BloodPressureForm, OxygenSat, Examination } from "./Components";
+import { Features, MedicalVisitForm, NearbyPharmacy, 
+  PrescriptionForm, BloodGlucoseForm, BloodPressureForm, OxygenSat, 
+  Examination, AddAllergy, AddFamily, AddVaccine} from "./Components";
 import "./index.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -8,10 +10,13 @@ root.render(
     {/* <Features /> */}
     {/* <MedicalVisitForm/> */}
     {/* <NearbyPharmacy/> */}
-    <PrescriptionForm/>
+    {/* <PrescriptionForm/> */}
     {/* <BloodGlucoseForm /> */}
     {/* <BloodPressureForm /> */}
     {/* <OxygenSat/> */}
     {/* <Examination/> */}
+    {/* <AddAllergy/> */}
+    {/* <AddFamily /> */}
+    <AddVaccine />
   </React.StrictMode>
 );
