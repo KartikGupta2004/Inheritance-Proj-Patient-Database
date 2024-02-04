@@ -1,7 +1,13 @@
 const mongoose=require('mongoose')
 const {Schema}=mongoose
 const UserSchema = new Schema({
-    name:{
+    firstname:{
+        type:String,required:true
+    },
+    lastname:{
+        type:String,required:true
+    },
+    mobile:{
         type:String,required:true
     },
     email:{
@@ -10,6 +16,7 @@ const UserSchema = new Schema({
     password:{
         type:String,required:true,unique:true
     },
+    
     date:{
         type:String,default:Date.now
     },

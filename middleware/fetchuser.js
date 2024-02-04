@@ -2,6 +2,8 @@
  require('dotenv').config()
  const JWT_SECRET=process.env.JWT_SECRET
  const fetchuser=(req,res,next)=>{
+    
+
     //Get the user from jwt token
     const token=req.header('auth-token')
     if(!token){
@@ -17,4 +19,6 @@
    
     
  }
+ 
  module.exports=fetchuser;
+ 

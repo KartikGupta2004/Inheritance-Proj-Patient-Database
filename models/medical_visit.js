@@ -11,12 +11,13 @@ const UserSchema = new Schema({
     rec_type:{
         type:String,required:true
     },
-     img: { data: Buffer,type:String
+    notes: { type:String
      },
     date:{
         type:String,default:Date.now
     },
-    
-
+    time:{
+        type:String
+    },
 })
-module.exports=mongoose.model('record',UserSchema)
+module.exports=mongoose.model('medical_visits',UserSchema)

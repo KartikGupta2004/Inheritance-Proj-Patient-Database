@@ -1,15 +1,16 @@
 const express=require('express')
 const router=express.Router()
 const User=require('../models/User')
-const { body, validationResult } = require('express-validator');
+const { body, validationResult, header } = require('express-validator');
 const bcrypt=require('bcryptjs')
 const jwt=require('jsonwebtoken')
 const fetchuser=require('../middleware/fetchuser.js')
 require('dotenv').config();
+
 const JWT_SECRET=process.env.JWT_SECRET;
 //ROUTE1:Create a User using:POST "/api/auth/createuser".Doesnt require auth
 router.post('/createuser/',[
-    body('name','Enter a valid name').isLength({min:3}),
+    // body('name','Enter a valid name').isLength({min:3}),
     body('password','Password must be atleast 5 characters').isLength({min:5})
 ],async(req,res)=>{
     console.log(req.body);
@@ -31,9 +32,12 @@ router.post('/createuser/',[
     const secPass=await bcrypt.hash(req.body.password,salt)
     //Create new user
     user=await User.create({
-        name:req.body.name,
+        firstname:req.body.firstname,
+        lastname:req.body.lastname,
+        mobile:req.body.mobile,
         password:secPass,
         email:req.body.email,
+        role:req.body.role,
     })
     const data={user:{id:user.id}}
     const authToken=jwt.sign(data,JWT_SECRET)
@@ -59,6 +63,7 @@ catch(err){
     // console.log(user);
 })
 //ROUTE2:Create a Authentication using:POST "/api/auth/login".
+
 router.post('/login/',[
     body('email','Enter a valid email').isEmail(),
     body('password','Password must not be blank').exists()
@@ -68,6 +73,7 @@ router.post('/login/',[
         return res.status(400).json({errors:errors.array()})
     }
     const {email,password}=req.body
+    
     try{
         let user=await User.findOne({email})
         if(!user){
@@ -80,14 +86,14 @@ router.post('/login/',[
         const data={user:{id:user.id}}
         const authToken=jwt.sign(data,JWT_SECRET)
         console.log(authToken);
-        res.json({authToken})
-
+        res.status(200).json({authToken})
     }
     catch(err){
         console.error(err.message)
-    res.status(500).send('Internal server error')
+    res.status(500).send('Internal server error')               
     }
 })
+
 // ROUTE3:Get logged in User Details using POST "/api/auth/getuser" Login required 
 router.post('/getuser/', fetchuser, async (req,res) => {
 try{
@@ -102,4 +108,7 @@ try{
 }
 
 })
+
+
 module.exports=router 
+

@@ -2,42 +2,44 @@ const express=require('express')
 const router=express.Router();
 const fetchuser=require('../middleware/fetchuser')
 const { body, validationResult } = require('express-validator');
-const Notes=require('../models/Notes')
+const Notes=require('../models/blood_glucose.js')
 const {authRole}=require('../middleware/authRole.js')
 //ROUTE1:Get all the notes using:GET "api/auth/fetchallnotes"
-router.get('/fetchallnotes',fetchuser,async(req,res)=>{
+router.get('/fetchallbloodrec',fetchuser,async(req,res)=>{
     const notes=await Notes.find({user:req.user.id})
 
     res.json(notes)
 })
 // ROUTE2:Add a new Note using:POST "/api/auth/addnote" .Login Required
-router.post('/addnote',fetchuser,body('title','Enter a valid title').isLength({min:3}),
-    body('description','Description must be atleast 5 characters').isLength({min:5}),async(req,res)=>{
+router.post('/addbloodrec',fetchuser,async(req,res)=>{
     try{
         
-    const {title,description,tag}=req.body
+    const {date,notes,result,time,rec_type,unit}=req.body
     const errors=validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).json({errors:errors.array()})
     }
     const note=new Notes({
-        title,description,tag,user:req.user.id
+        date,notes,result,time,rec_type,unit,user:req.user.id
     })
     const savedNote=await note.save()
     res.json(savedNote)
     }
     catch(err){
+        console.log(err);
         res.status(500).send({errors:'Internal server error'})
     }
 })
 //ROUTE3:Update an existing note using PUT:/api/notes/updatenote.Login Required
-router.put('/updatenote/:id',fetchuser,async(req,res)=>{
-    const {title,description,tag}=req.body
+router.put('/updatebloodrec/:id',fetchuser,async(req,res)=>{
+    const {date,notes,result,time,rec_type,unit}=req.body
     // Create a newNote object
     const newNote={}
-    if(title){newNote.title=title}
-    if(description){newNote.description=description}
-    if(tag){newNote.tag=tag}
+    if(date){newNote.date=date}
+    if(notes){newNote.notes=notes}
+    if(result){newNote.result=result}
+    if(time){newNote.time=time}
+    if(rec_type){newNote.rec_type=rec_type}
     //Find the note to be updated and update it
     let note=await Notes.findById(req.params.id)
     if(!note){
@@ -50,13 +52,15 @@ router.put('/updatenote/:id',fetchuser,async(req,res)=>{
     res.json({note})
 } )
 // ROUTE4:Deleting a note using DELETE:/api/notes/deletenote.Login Required
-router.delete('/deletenote/:id',fetchuser,async(req,res)=>{
-    const {title,description,tag}=req.body
+router.delete('/deletebloodrec/:id',fetchuser,async(req,res)=>{
+    const {date,notes,result,time,rec_type,unit}=req.body
     // Create a newNote object
     const newNote={}
-    if(title){newNote.title=title}
-    if(description){newNote.description=description}
-    if(tag){newNote.tag=tag}
+    if(date){newNote.date=date}
+    if(notes){newNote.notes=notes}
+    if(result){newNote.result=result}
+    if(time){newNote.time=time}
+    if(rec_type){newNote.rec_type=rec_type}
     //Find the note to be updated and update it
     let note=await Notes.findById(req.params.id)
     if(!note){
@@ -67,17 +71,6 @@ router.delete('/deletenote/:id',fetchuser,async(req,res)=>{
     }
     note= await Notes.findByIdAndDelete(req.params.id)
     res.json({"Success":"Node has been deleted",note:note})
-} )
-const Roles={
-    User: "user",
-  Admin: "admin",
- }
-
-//Admin login
-router.get('/adminpage',authRole(Roles.Admin),async(req,res)=>{
-    // res.send('Admin Page')
-    console.log("Succesfully executed");
-    const notes=await Notes.find()
-    res.json(notes)
 })
+
 module.exports=router
