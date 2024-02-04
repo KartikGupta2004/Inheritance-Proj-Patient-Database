@@ -9,5 +9,9 @@ import Examination from "./Examination.jsx";
 import AddAllergy from "./AddAllergy.jsx";
 import AddFamily from "./AddFamily.jsx";
 import AddVaccine from "./AddVaccine.jsx";
+import Login from "./Login.jsx";
+import SignUp from "./SignUp.jsx";
 
-export {Features, MedicalVisitForm, NearbyPharmacy, PrescriptionForm, BloodGlucoseForm, BloodPressureForm, OxygenSat, Examination, AddAllergy, AddFamily, AddVaccine};
+export {Features, MedicalVisitForm, NearbyPharmacy, PrescriptionForm, 
+    BloodGlucoseForm, BloodPressureForm, OxygenSat, Examination, 
+    AddAllergy, AddFamily, AddVaccine, Login, SignUp};
