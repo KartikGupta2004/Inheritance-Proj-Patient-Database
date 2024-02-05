@@ -14,7 +14,8 @@ router.get('/fetchallvisits',fetchuser,async(req,res)=>{
 router.post('/addvisit',fetchuser,async(req,res)=>{
     try{
         
-    const {doc_name,rec_type,notes,time}=req.body
+    const {doc_name,rec_type,notes,time}=req.body;
+    console.log(req.body);
     const errors=validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).json({errors:errors.array()})

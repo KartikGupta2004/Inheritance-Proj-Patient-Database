@@ -1,22 +1,22 @@
 const mongoose=require('mongoose')
 const {Schema}=mongoose
-const UserSchema = new Schema({
+module.exports=mongoose.model('records', new Schema({
     user:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"user"
     },
-    doc_name:{
+    doctor:{
         type:String,required:true
     },
-    rec_type:{
-        type:String,required:true
+    drugs:{
+        type:Array,required:true
     },
-     img: { data: Buffer,type:String
-     },
+    rec_note:{
+        type:String
+    },
     date:{
         type:String,default:Date.now
     },
     
 
-})
-module.exports=mongoose.model('record',UserSchema)
+}))

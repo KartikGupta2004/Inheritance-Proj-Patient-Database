@@ -1,26 +1,20 @@
 const express=require('express')
 const router=express.Router();
-const fetchuser=require('../middleware/fetchuser')
+const fetchuser=require('../middleware/fetchuser.js')
 const { body, validationResult } = require('express-validator');
-const Notes=require('../models/blood_glucose.js')
-const {authRole}=require('../middleware/authRole.js')
+const Notes=require('../models/oxygen-saturation.js')
 //ROUTE1:Get all the notes using:GET "api/auth/fetchallnotes"
-router.get('/fetchallbloodrec',fetchuser,async(req,res)=>{
+router.get('/fetchalloxygen',fetchuser,async(req,res)=>{
     const notes=await Notes.find({user:req.user.id})
-
     res.json(notes)
 })
 // ROUTE2:Add a new Note using:POST "/api/auth/addnote" .Login Required
-router.post('/addbloodrec',fetchuser,async(req,res)=>{
+router.post('/addoxygen',fetchuser ,async(req,res)=>{
     try{
-        
-    const {date,notes,result,time,rec_type,unit}=req.body
-    const errors=validationResult(req);
-    if(!errors.isEmpty()){
-        return res.status(400).json({errors:errors.array()})
-    }
+    const {rec_note,result,pulse,time,date}=req.body;
+    console.log(req.body);
     const note=new Notes({
-        date,notes,result,time,rec_type,unit,user:req.user.id
+       rec_note,result,pulse,time,date,user:req.user.id
     })
     const savedNote=await note.save()
     res.json(savedNote)
@@ -31,15 +25,15 @@ router.post('/addbloodrec',fetchuser,async(req,res)=>{
     }
 })
 //ROUTE3:Update an existing note using PUT:/api/notes/updatenote.Login Required
-router.put('/updatebloodrec/:id',fetchuser,async(req,res)=>{
-    const {date,notes,result,time,rec_type,unit}=req.body
+router.put('/updateoxygen/:id',fetchuser,async(req,res)=>{
+    const {rec_note,result,pulse,time,date}=req.body
     // Create a newNote object
     const newNote={}
     if(date){newNote.date=date}
-    if(notes){newNote.notes=notes}
+    if(rec_note){newNote.rec_note=rec_note}
     if(result){newNote.result=result}
+    if(pulse){newNote.pulse=pulse}
     if(time){newNote.time=time}
-    if(rec_type){newNote.rec_type=rec_type}
     //Find the note to be updated and update it
     let note=await Notes.findById(req.params.id)
     if(!note){
@@ -52,15 +46,15 @@ router.put('/updatebloodrec/:id',fetchuser,async(req,res)=>{
     res.json({note})
 } )
 // ROUTE4:Deleting a note using DELETE:/api/notes/deletenote.Login Required
-router.delete('/deletebloodrec/:id',fetchuser,async(req,res)=>{
-    const {date,notes,result,time,rec_type,unit}=req.body
+router.delete('/deleteoxygen/:id',fetchuser,async(req,res)=>{
+     const {rec_note,result,pulse,time,date}=req.body
     // Create a newNote object
     const newNote={}
     if(date){newNote.date=date}
-    if(notes){newNote.notes=notes}
+    if(rec_note){newNote.rec_note=rec_note}
     if(result){newNote.result=result}
+    if(pulse){newNote.pulse=pulse}
     if(time){newNote.time=time}
-    if(rec_type){newNote.rec_type=rec_type}
     //Find the note to be updated and update it
     let note=await Notes.findById(req.params.id)
     if(!note){

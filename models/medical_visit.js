@@ -1,6 +1,6 @@
 const mongoose=require('mongoose')
 const {Schema}=mongoose
-const UserSchema = new Schema({
+module.exports=mongoose.model('medical_visits', new Schema({
     user:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"user"
@@ -19,5 +19,4 @@ const UserSchema = new Schema({
     time:{
         type:String
     },
-})
-module.exports=mongoose.model('medical_visits',UserSchema)
+}))

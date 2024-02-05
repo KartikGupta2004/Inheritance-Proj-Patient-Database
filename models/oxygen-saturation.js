@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 const {Schema}=mongoose;
-module.exports=mongoose.model('blood_glucose',new Schema({
+module.exports=mongoose.model('oxygen',new Schema({
     user:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"user"
@@ -8,17 +8,14 @@ module.exports=mongoose.model('blood_glucose',new Schema({
     rec_note:{
         type:String
     },
-    result:{
+    pulse:{
         type:Number,required:true
+    },
+    result:{
+        type:String,required:true
     },
     time:{
         type:String,required:true
-    },
-    rec_type:{
-        type:String,required:true
-    },
-    unit:{
-        type:String
     },
     date:{
         type:String,default:Date.now
