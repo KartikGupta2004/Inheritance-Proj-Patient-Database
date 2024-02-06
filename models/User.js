@@ -20,6 +20,9 @@ const UserSchema = new Schema({
     date:{
         type:String,default:Date.now
     },
+    Role:{
+        type:String,required:false,default:"User"
+    }
     
 
 })

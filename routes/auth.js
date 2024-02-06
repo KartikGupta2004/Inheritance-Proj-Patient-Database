@@ -37,7 +37,7 @@ router.post('/createuser/',[
         mobile:req.body.mobile,
         password:secPass,
         email:req.body.email,
-        role:req.body.role,
+        Role:req.body.Role,
     })
     const data={user:{id:user.id}}
     const authToken=jwt.sign(data,JWT_SECRET)
