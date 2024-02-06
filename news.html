@@ -197,14 +197,14 @@ fetch(url)
         i++;
     }
     let m=1;
-    while(m<10){
+    while(m<7){
       document.getElementById(`img${m}`).src = list[m].urlToImage;
       document.getElementById(`title${m}`).innerText = list[m].title;
       document.getElementById(`desc${m}`).innerText = list[m].description;
       document.getElementById(`link${m}`).href = list[m].url;
       m++;
     }
-    console.log(list[3])
+    console.log(list[6])
   })
   .catch(error => {
     // Handle errors
