@@ -38,4 +38,11 @@ module.exports=mongoose.model('examination',new Schema({
     date:{
         type:String,default:Date.now
     },
+    imageURL:{
+        type:String
+    },
+    imageID:{
+        type:String
+    }
+    
 }))

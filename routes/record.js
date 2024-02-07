@@ -18,11 +18,11 @@ router.get('/fetchallrecords',upload.single('file'),fetchuser,async(req,res)=>{
 // ROUTE2:Add a new Note using:POST "/api/auth/addnote" .Login Required
 router.post('/addrecord',fetchuser,async(req,res)=>{
     
-    const {doctor,drugs,rec_note,date}=req.body
+    const {doctor,drugs,rec_note,date,imageID,imageURL}=req.body
     
     try{
     const note=new Notes({
-        doctor,drugs,rec_note,date,user:req.user.id
+        doctor,drugs,rec_note,date,imageID,imageURL,user:req.user.id
             
     })
     const savedNote=await note.save()
@@ -37,13 +37,15 @@ router.post('/addrecord',fetchuser,async(req,res)=>{
 
 //ROUTE3:Update an existing note using PUT:/api/notes/updatenote.Login Required
 router.put('/updaterecord/:id',fetchuser,async(req,res)=>{
-    const {doctor,drugs,rec_note,date}=req.body
+    const {doctor,drugs,rec_note,date,imageID,imageURL}=req.body
     // Create a newNote object
     const newNote={}
     if(doctor){newNote.doctor=doctor}
     if(drugs){newNote.drugs=drugs}
     if(rec_note){newNote.rec_note=rec_note}
     if(date){newNote.date=date}
+    if(imageID){newNote.imageID=imageID}
+    if(imageURL){newNote.imageURL=imageURL}
     //Find the note to be updated and update it
     let note=await Notes.findById(req.params.id)
     if(!note){
@@ -57,13 +59,16 @@ router.put('/updaterecord/:id',fetchuser,async(req,res)=>{
 } )
 // ROUTE4:Deleting a note using DELETE:/api/notes/deletenote.Login Required
 router.delete('/deleterecord/:id',fetchuser,async(req,res)=>{
-     const {doctor,drugs,rec_note,date}=req.body
+    const {doctor,drugs,rec_note,date,imageID,imageURL}=req.body
     // Create a newNote object
     const newNote={}
     if(doctor){newNote.doctor=doctor}
     if(drugs){newNote.drugs=drugs}
     if(rec_note){newNote.rec_note=rec_note}
     if(date){newNote.date=date}
+    if(imageID){newNote.imageID=imageID}
+    if(imageURL){newNote.imageURL=imageURL}
+    
     //Find the note to be updated and update it
     let note=await Notes.findById(req.params.id)
     if(!note){
@@ -81,14 +86,7 @@ router.post('/addimage',upload.single('file'),fetchuser,async(req,res)=>{
     console.log(file.originalname);
     const image=await UploadOnCloudinary(file.path)
     console.log(image);
-     const imageID = image.public_id;
-     const imageURL=image.url;
-     const note=new Notes({
-        imageID,imageURL,user:req.user.id
-     })
-     const savedNote=await note.save()
-     console.log(savedNote);
-     res.json(savedNote)
+    res.json({imageID:image.public_id,imageURL:image.url})
     }catch(err){
         res.json(err)
     }

@@ -3,6 +3,8 @@ const router=express.Router();
 const fetchuser=require('../middleware/fetchuser.js')
 const { body, validationResult } = require('express-validator');
 const Notes=require('../models/examination.js')
+const upload = require('../middleware/multer.js')
+const UploadOnCloudinary=require('../util/upload.js')
 //ROUTE1:Get all the notes using:GET "api/auth/fetchallnotes"
 router.get('/fetchallexam',fetchuser,async(req,res)=>{
     const notes=await Notes.find({user:req.user.id})
@@ -11,10 +13,10 @@ router.get('/fetchallexam',fetchuser,async(req,res)=>{
 // ROUTE2:Add a new Note using:POST "/api/auth/addnote" .Login Required
 router.post('/addexam',fetchuser ,async(req,res)=>{
     try{
-    const {symptoms,diagnoses,temperature,tempunit,weight,weightunit,height,heightunit,rec_note,doctor,date}=req.body;
+    const {symptoms,diagnoses,temperature,tempunit,weight,weightunit,height,heightunit,rec_note,doctor,date,imageID,imageURL}=req.body;
     console.log(req.body);
     const note=new Notes({
-        symptoms,diagnoses,temperature,tempunit,weight,weightunit,height,heightunit,rec_note,doctor,date,user:req.user.id
+        symptoms,diagnoses,temperature,tempunit,weight,weightunit,height,heightunit,rec_note,doctor,date,imageID,imageURL,user:req.user.id
     })
     const savedNote=await note.save()
     res.json(savedNote)
@@ -26,7 +28,7 @@ router.post('/addexam',fetchuser ,async(req,res)=>{
 })
 //ROUTE3:Update an existing note using PUT:/api/notes/updatenote.Login Required
 router.put('/updateexam/:id',fetchuser,async(req,res)=>{
-   const {symptoms,diagnoses,temperature,weight,height,rec_note,doctor,date}=req.body;
+   const {symptoms,diagnoses,temperature,weight,height,rec_note,doctor,date,imageID,imageURL}=req.body;
     // Create a newNote object
     const newNote={}
     if(date){newNote.date=date}
@@ -37,6 +39,9 @@ router.put('/updateexam/:id',fetchuser,async(req,res)=>{
     if(weight){newNote.weight=weight}
     if(height){newNote.height=height}
     if(doctor){newNote.doctor=doctor}
+    if(imageID){newNote.imageID=imageID}
+    if(imageURL){newNote.imageURL=imageURL}
+    
     //Find the note to be updated and update it
     let note=await Notes.findById(req.params.id)
     if(!note){
@@ -50,7 +55,7 @@ router.put('/updateexam/:id',fetchuser,async(req,res)=>{
 } )
 // ROUTE4:Deleting a note using DELETE:/api/notes/deletenote.Login Required
 router.delete('/deleteexam/:id',fetchuser,async(req,res)=>{
-   const {symptoms,diagnoses,temperature,weight,height,rec_note,doctor,date}=req.body;
+    const {symptoms,diagnoses,temperature,weight,height,rec_note,doctor,date,imageID,imageURL}=req.body;
     // Create a newNote object
     const newNote={}
     if(date){newNote.date=date}
@@ -61,6 +66,8 @@ router.delete('/deleteexam/:id',fetchuser,async(req,res)=>{
     if(weight){newNote.weight=weight}
     if(height){newNote.height=height}
     if(doctor){newNote.doctor=doctor}
+    if(imageID){newNote.imageID=imageID}
+    if(imageURL){newNote.imageURL=imageURL}
     //Find the note to be updated and update it
     let note=await Notes.findById(req.params.id)
     if(!note){
@@ -72,5 +79,15 @@ router.delete('/deleteexam/:id',fetchuser,async(req,res)=>{
     note= await Notes.findByIdAndDelete(req.params.id)
     res.json({"Success":"Node has been deleted",note:note})
 })
-
+router.post('/addimage',upload.single('file'),fetchuser,async(req,res)=>{
+    try{
+    const file=req.file
+    console.log(file.originalname);
+    const image=await UploadOnCloudinary(file.path)
+    console.log(image);
+    res.json({imageID:image.public_id,imageURL:image.url})
+    }catch(err){
+        res.json(err)
+    }
+})
 module.exports=router

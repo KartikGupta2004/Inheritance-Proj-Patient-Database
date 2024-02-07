@@ -3,7 +3,7 @@
  const JWT_SECRET=process.env.JWT_SECRET
  const fetchuser=(req,res,next)=>{
     //Get the user from jwt token
-    const {token}=req.headers
+    const token=req.header("token")
     if(!token){
        return res.status(401).send({error:"Please authenticate using a valid token"})
     }
