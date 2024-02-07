@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
-//ADD PASSWORD VALIDATION
-//ADD CONFIRM PASSWORD VALIDATION
-//ADD FORM DATA CAPTURE and STORE AUTH TOKEN
+import { useSignUp } from "../Hooks/useSignUp";
 
 function SignUp() {
   const [data, setData] = useState({
@@ -15,6 +12,7 @@ function SignUp() {
     role: "",
   });
   const [confirmPassword, setConfirmPassword] = useState("");
+  const { signup, error, isLoading } = useSignUp();
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -24,9 +22,11 @@ function SignUp() {
     setData({ ...data, role: option });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(data);
+    await signup({ ...data });
+    if(error) return;
     setData({
       firstname: "",
       lastname: "",
@@ -53,7 +53,7 @@ function SignUp() {
           </Link>
         </div>
 
-        <div className='flex flex-col justify-center items-center h-full text-5xl bg-black px-16 max-w-3xl'>
+        <div className='flex flex-col justify-center items-center h-full text-5xl bg-black px-16 max-w-3xl gap-4'>
           <p className='font-bold mb-2 text-white'>Create Account</p>
           <form action='' onSubmit={handleSubmit}>
             <input
@@ -147,11 +147,15 @@ function SignUp() {
             </div>
             <button
               type='submit'
+              disabled={isLoading}
               className=' bg-white rounded-2xl w-64 px-5 py-4'
             >
               Sign Up
             </button>
           </form>
+          {error && (
+            <div className='p-2 bg-white rounded-lg text-red-600'>{error}</div>
+          )}
         </div>
       </div>
     </>

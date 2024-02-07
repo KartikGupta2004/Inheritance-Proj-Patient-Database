@@ -12,13 +12,33 @@ const PrescriptionForm = () => {
       file: null,
       date: "",
       doctor: "",
-      note: ""
+      rec_note: ""
     })
   const drugTrack = {
     drug: "",
     dose: "",
   };
-
+const saveData = async () => {
+  try {
+    const authToken = localStorage.getItem("auth-token");
+    const response = await fetch(
+      "http://localhost:5000/api/record/addrecord",
+      {
+        method: "POST",
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json",
+          "auth-token": authToken,
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    const responseData = await response.json();
+    console.log(responseData);
+  } catch (error) {
+    console.log(`Error: ${error.error}`);
+  }
+};
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   }
@@ -27,13 +47,14 @@ const PrescriptionForm = () => {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
+    saveData();
     console.log(data);
     setData({
       drugs: [],
       file: null,
       date: "",
       doctor: "",
-      note: ""
+      rec_note: ""
     });
   }
   const handleAdd = (e) => {
@@ -171,7 +192,7 @@ const PrescriptionForm = () => {
                 Note:
               </label>
               <textarea
-                name='note'
+                name='rec_note'
                 id='note'
                 cols='30'
                 rows='1'

@@ -1,31 +1,55 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 
 const BloodGlucoseForm = () => {
   const [data, setData] = useState({
-    result:0, 
-    unit:"mg/dL",
-    type:"",
-    date:"",
-    time:"",
-    note:""
-  })
-  
-  const handleChange = (e) =>{
-    setData({...data, [e.target.name]:e.target.value});
-  }
+    result: 0,
+    unit: "mg/dL",
+    rec_type: "",
+    date: "",
+    time: "",
+    rec_note: "",
+  });
 
-  const handleSubmit = (e) =>{
+  const { user } = useAuthContext();
+
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const saveData = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/blood_glucose/addbloodrec",
+        {
+          method: "POST",
+          headers: {
+            Accept: "*/*",
+            "Content-Type": "application/json",
+            token: user.authToken,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const responseData = await response.json();
+      console.log(responseData);
+    } catch (error) {
+      console.log(`Error: ${error.error}`);
+    }
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
+    saveData();
     console.log(data);
     setData({
-      result:0, 
-      unit:"mg/dL",
-      type:"",
-      date:"",
-      time:"",
-      note:""
+      result: 0,
+      unit: "mg/dL",
+      rec_type: "",
+      date: "",
+      time: "",
+      rec_note: "",
     });
-  }
+  };
   return (
     <main className='flex justify-center items-center w-screen h-full box-border'>
       <div className='flex justify-center items-center w-full h-fit box-border flex-col bg-stone-100'>
@@ -70,14 +94,12 @@ const BloodGlucoseForm = () => {
               </select>
             </span>
             <span className='sm:col-span-2'>
-              <p className='block my-1'>
-                Type:
-              </p>
+              <p className='block my-1'>Type:</p>
               <div className='flex justify-around flex-wrap '>
                 <span className='bg-white rounded-lg py-2 px-4 m-2'>
                   <input
                     type='radio'
-                    name='type'
+                    name='rec_type'
                     id='fasting'
                     value='fasting'
                     className='form-radio mx-2 checked:bg-rose-400 checked:hover:bg-rose-400 checked:active:bg-rose-400 checked:focus:bg-rose-400 focus:bg-rose-400 focus:outline-none focus:ring-1 focus:ring-rose-400'
@@ -89,7 +111,7 @@ const BloodGlucoseForm = () => {
                 <span className='bg-white rounded-lg py-2 px-4 m-2'>
                   <input
                     type='radio'
-                    name='type'
+                    name='rec_type'
                     id='postprandial'
                     value='postprandial'
                     className='form-radio mx-2 checked:bg-rose-400 checked:hover:bg-rose-400 checked:active:bg-rose-400 checked:focus:bg-rose-400 focus:bg-rose-400 focus:outline-none focus:ring-1 focus:ring-rose-400'
@@ -101,7 +123,7 @@ const BloodGlucoseForm = () => {
                 <span className='bg-white rounded-lg py-2 px-4 m-2'>
                   <input
                     type='radio'
-                    name='type'
+                    name='rec_type'
                     id='random'
                     value='random'
                     className='form-radio mx-2 checked:bg-rose-400 checked:hover:bg-rose-400 checked:active:bg-rose-400 checked:focus:bg-rose-400 focus:bg-rose-400 focus:outline-none focus:ring-1 focus:ring-rose-400'
@@ -145,17 +167,20 @@ const BloodGlucoseForm = () => {
                 Note:
               </label>
               <textarea
-                name='note'
+                name='rec_note'
                 id='note'
                 cols='40'
                 rows='1'
                 className='form-textarea rounded-lg px-2 resize-none box-border shrink w-full'
                 onChange={handleChange}
-                value={data.note}
+                value={data.rec_note}
               ></textarea>
             </span>
             <span className='flex justify-center sm:col-span-2'>
-              <button type='submit' className='rounded-full font-bold text-lg px-4 py-2 bg-rose-400 text-white'>
+              <button
+                type='submit'
+                className='rounded-full font-bold text-lg px-4 py-2 bg-rose-400 text-white'
+              >
                 Save Record
               </button>
             </span>

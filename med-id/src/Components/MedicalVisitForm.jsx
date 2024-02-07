@@ -4,24 +4,49 @@ const MedicalVisitForm = () => {
   const [data, setData] = useState({
     date:"",
     time:"",
-    type:"",
-    doctor:"",
-    note:""
+    rec_type:"",
+    doc_name:"",
+    notes:""
   })
+
+  const { user } = useAuthContext();
 
   const handleChange = (e) =>{
     setData({...data, [e.target.name]:e.target.value});
   }
 
+  const saveData = async () => {
+    try {
+      const authToken = localStorage.getItem("auth-token");
+      const response = await fetch(
+        "http://localhost:5000/api/medical_visits/addvisit",
+        {
+          method: "POST",
+          headers: {
+            Accept: "*/*",
+            "Content-Type": "application/json",
+            "auth-token": authToken,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const responseData = await response.json();
+      console.log(responseData);
+    } catch (error) {
+      console.log(`Error: ${error.error}`);
+    }
+  };
+
   const handleSubmit = (e) =>{
     e.preventDefault();
     console.log(data);
+    saveData();
     setData({
       date:"",
       time:"",
-      type:"",
-      doctor:"",
-      note:""
+      rec_type:"",
+      doc_name:"",
+      notes:""
     });
   }
   return (
@@ -70,7 +95,7 @@ const MedicalVisitForm = () => {
                   <input
                     type='radio'
                     className='form-radio mx-2 checked:bg-rose-400 checked:hover:bg-rose-400 checked:active:bg-rose-400 checked:focus:bg-rose-400 focus:bg-rose-400 focus:outline-none focus:ring-1 focus:ring-rose-400'
-                    name='type'
+                    name='rec_type'
                     id='new'
                     value='new'
                     required
@@ -84,7 +109,7 @@ const MedicalVisitForm = () => {
                   <input
                     type='radio'
                     className='form-radio mx-2 checked:bg-rose-400 checked:hover:bg-rose-400 checked:active:bg-rose-400 checked:focus:bg-rose-400 focus:bg-rose-400 focus:outline-none focus:ring-1 focus:ring-rose-400'
-                    name='type'
+                    name='rec_type'
                     id='followup'
                     value='followup'
                     required
@@ -100,7 +125,7 @@ const MedicalVisitForm = () => {
               </label>
               <input
                 type='text'
-                name='doctor'
+                name='doc_name'
                 id='doctor'
                 className='form-text rounded-lg px-4 w-full'
                 required
@@ -118,7 +143,7 @@ const MedicalVisitForm = () => {
                 Note:
               </label>
               <textarea
-                name='note'
+                name='notes'
                 id='note'
                 cols='43'
                 rows='1'

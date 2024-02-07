@@ -1,31 +1,56 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 
 const BloodPressureForm = () => {
   const [data, setData] = useState({
-    systolic:120, 
-    diastolic:80, 
-    pulse:80,
-    date:"",
-    time:"",
-    note:""
-  })
-  
-  const handleChange = (e) =>{
-    setData({...data, [e.target.name]:e.target.value});
-  }
+    systolic: 120,
+    diastolic: 80,
+    pulse: 80,
+    date: "",
+    time: "",
+    rec_note: "",
+  });
 
-  const handleSubmit = (e) =>{
+  const { user } = useAuthContext();
+
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const saveData = async () => {
+    try {
+      const authToken = localStorage.getItem("auth-token");
+      const response = await fetch(
+        "http://localhost:5000/api/blood_pressure/addpressurerec/",
+        {
+          method: "POST",
+          headers: {
+            Accept: "*/*",
+            "Content-Type": "application/json",
+            token: user.authToken,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const responseData = await response.json();
+      console.log(responseData);
+    } catch (err) {
+      console.log(`Error: ${err.error}`);
+    }
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log(data);
+    saveData();
     setData({
-      systolic:120, 
-      diastolic:80, 
-      pulse:80,
-      date:"",
-      time:"",
-      note:""
-    })
-  }
+      systolic: 120,
+      diastolic: 80,
+      pulse: 80,
+      date: "",
+      time: "",
+      rec_note: "",
+    });
+  };
   return (
     <main className='flex justify-center items-center w-screen h-full box-border'>
       <div className='flex justify-center items-center w-full h-fit box-border flex-col bg-stone-100'>
@@ -127,7 +152,7 @@ const BloodPressureForm = () => {
                 Note:
               </label>
               <textarea
-                name='note'
+                name='rec_note'
                 id='note'
                 cols='30'
                 rows='2'
@@ -136,7 +161,10 @@ const BloodPressureForm = () => {
               ></textarea>
             </div>
             <div className='flex justify-center'>
-              <button type='submit' className='rounded-full font-bold text-lg px-4 py-2 bg-rose-400 text-white'>
+              <button
+                type='submit'
+                className='rounded-full font-bold text-lg px-4 py-2 bg-rose-400 text-white'
+              >
                 Save Record
               </button>
             </div>

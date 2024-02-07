@@ -1,26 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {
-  Features, MedicalVisitForm, NearbyPharmacy,
-  PrescriptionForm, BloodGlucoseForm, BloodPressureForm, OxygenSat,
-  Examination, AddAllergy, AddFamily, AddVaccine, Login, SignUp
-} from "./Components";
+import { App } from "./App";
+import { AuthContextProvider } from "./Context/AuthContext";
 import "./index.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    {/* <Features /> */}
-    {/* <MedicalVisitForm/> */}
-    {/* <NearbyPharmacy/> */}
-    {/* <PrescriptionForm/> */}
-    {/* <BloodGlucoseForm /> */}
-    {/* <BloodPressureForm /> */}
-    {/* <OxygenSat/> */}
-    {/* <Examination/> */}
-    {/* <AddAllergy/> */}
-    {/* <AddFamily /> */}
-    {/* <AddVaccine /> */}
-    {/* <Login /> */}
-    {/* <SignUp /> */}
+    <AuthContextProvider>
+      <App />
+    </AuthContextProvider>
   </React.StrictMode>
 );

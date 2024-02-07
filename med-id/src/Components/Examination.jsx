@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import chooseFile from "../icons/add.png";
 import doctor from "../icons/doctor.png";
+import { useAuthContext } from "../Hooks/useAuthContext";
 
 //NEED TO MODIFY SYMPTOMS AND DIAGNOSES FUNCTIONALITY --- DONE
 //CLOUDINARY
@@ -18,8 +19,11 @@ const Examination = () => {
     heightunit: "in",
     date: "",
     doctor: "",
-    note: ""
+    rec_note: ""
   })
+
+  const {user} = useAuthContext();
+  
   let symptom = "", diagnosis = "";
   const handleFileUpload = (e) => {
     setData({ ...data, file: e.target.files[0] })
@@ -45,9 +49,31 @@ const Examination = () => {
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   }
+  const saveData = async () => {
+    try {
+      const authToken = localStorage.getItem("auth-token");
+      const response = await fetch(
+        "http://localhost:5000/api/oxygen_saturation/addoxygen",
+        {
+          method: "POST",
+          headers: {
+            Accept: "*/*",
+            "Content-Type": "application/json",
+            token: user.authToken,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const responseData = await response.json();
+      console.log(responseData);
+    } catch (error) {
+      console.log(`Error: ${error.error}`);
+    }
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(data);
+    saveData();
     setData({
       symptoms: [],
       diagnoses: [],
@@ -60,7 +86,7 @@ const Examination = () => {
       heightunit: "in",
       date: "",
       doctor: "",
-      note: ""
+      rec_note: ""
     })
   }
   return (
@@ -313,7 +339,7 @@ const Examination = () => {
                 Note:
               </label>
               <textarea
-                name='note'
+                name='rec_note'
                 id='note'
                 cols='43'
                 rows='1'

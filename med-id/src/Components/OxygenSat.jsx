@@ -1,29 +1,60 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { useAuthContext } from "../Hooks/useAuthContext";
 
 const OxygenSat = () => {
   const [data, setData] = useState({
-    result:98,
-    pulse:80,
-    date:"",
-    time:"",
-    note:""
-  })
-  
-  const handleChange = (e) =>{
-    setData({...data, [e.target.name]:e.target.value});
-  }
+    result: 98,
+    pulse: 80,
+    date: "",
+    time: "",
+    rec_note: "",
+  });
+  const [error, setError] = useState(null);
+  const { user } = useAuthContext();
 
-  const handleSubmit = (e) =>{
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const saveData = async () => {
+    try {
+      console.log(user.authToken);
+      const response = await fetch(
+        "http://localhost:5000/api/oxygen_saturation/addoxygen",
+        {
+          method: "POST",
+          headers: {
+            Accept: "*/*",
+            "Content-Type": "application/json",
+            token: user.authToken,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const responseData = await response.json();
+      console.log(responseData);
+    } catch (error) {
+      console.log(`Error: ${error.error}`);
+    }
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
+    if (!user) {
+      setError("Please login first");
+      return;
+    }
+    console.log(user.authToken);
+    saveData();
     console.log(data);
     setData({
-      result:98,
-      pulse:80,
-      date:"",
-      time:"",
-      note:""
+      result: 98,
+      pulse: 80,
+      date: "",
+      time: "",
+      rec_note: "",
     });
-  }
+  };
   return (
     <main className='flex justify-center items-center w-full h-full box-border'>
       <div className='flex justify-center items-center w-full h-fit box-border flex-col bg-stone-100'>
@@ -110,20 +141,28 @@ const OxygenSat = () => {
                 Note:
               </label>
               <textarea
-                name='note'
+                name='rec_note'
                 id='note'
                 cols='30'
                 rows='2'
                 className='form-textarea rounded-lg grow resize-none'
-                value={data.note}
+                value={data.rec_note}
                 onChange={handleChange}
               ></textarea>
             </div>
             <div className='flex justify-center'>
-              <button type='submit' className='rounded-full font-bold text-lg px-4 py-2 bg-rose-400 text-white'>
+              <button
+                type='submit'
+                className='rounded-full font-bold text-lg px-4 py-2 bg-rose-400 text-white'
+              >
                 Save Record
               </button>
             </div>
+            {error && (
+              <div className=' p-2 border-2 text-red-600 border-red-600 rounded-lg'>
+                {error}
+              </div>
+            )}
           </form>
         </section>
       </div>
