@@ -69,10 +69,10 @@ router.delete('/deletenote/:id',fetchuser,async(req,res)=>{
     note= await Notes.findByIdAndDelete(req.params.id)
     res.json({"Success":"Node has been deleted",note:note})
 } )
-const Roles={
-    User: "user",
-  Admin: "admin",
- }
+// const Roles={
+//     User: "user",
+//   Admin: "admin",
+//  }
 
 //Admin login
 router.get('/adminpage',fetchadmin,async(req,res)=>{

@@ -6,10 +6,10 @@ module.exports=mongoose.model('records', new Schema({
         ref:"user"
     },
     doctor:{
-        type:String,required:true
+        type:String
     },
     drugs:{
-        type:Array,required:true
+        type:Array
     },
     rec_note:{
         type:String
@@ -17,6 +17,10 @@ module.exports=mongoose.model('records', new Schema({
     date:{
         type:String,default:Date.now
     },
-    
-
+    imageURL:{
+        type:String
+    },
+    imageID:{
+        type:String
+    }
 }))
