@@ -1,22 +1,79 @@
-import React from "react";
-
+import React,{useState} from "react";
+import { Link } from "react-router-dom";
+import { useAuthContext } from "../../Hooks/useAuthContext";
+import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 const BloodPressureForm = () => {
+  const [data, setData] = useState({
+    systolic: 120,
+    diastolic: 80,
+    pulse: 80,
+    date: "",
+    time: "",
+    rec_note: "",
+  });
+  const { user } = useAuthContext();
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const saveData = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/blood_pressure/addpressurerec/",
+        {
+          method: "POST",
+          headers: {
+            Accept: "*/*",
+            "Content-Type": "application/json",
+            token: user.authToken,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const responseData = await response.json();
+      console.log(responseData);
+    } catch (err) {
+      console.log(`Error: ${err.error}`);
+    }
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(data);
+    saveData();
+    setData({
+      systolic: 120,
+      diastolic: 80,
+      pulse: 80,
+      date: "",
+      time: "",
+      rec_note: "",
+    });
+  };
   return (
-    <main className='flex mx-auto justify-center items-center max-w-screen-Login h-fit box-border'>
-      <div className='flex justify-center items-center w-full h-1/2 box-border flex-col bg-stone-100'>
-        <h1 className='block text-center w-5/6 text-5xl py-4 px-8 text-rose-400 box-border font-bold border-b-2 border-rose-400'>
+    <>
+    <div className='bg-fuchsia-50 h-fit mx-auto'>
+    <div className="flex justify-center items-center w-full py-3 border-b-2 border-rose-400">
+      <Link exact to='/bloodpressure'>
+    <MdOutlineKeyboardArrowLeft className='text-4xl ml-1 md:ml-3 sm:6xl md:text-7xl text-black'/>
+    </Link>
+        <h1 className='block text-center w-5/6 text-2xl sm:text-4xl lg:text-5xl py-4 px-8 text-rose-400 box-border font-bold mb-0 '>
           Blood Pressure
         </h1>
-        <section className='p-6 text-4xl box-border mt-16 w-5/6 h-fit flex-grow'>
+        </div>
+        <div className='flex justify-center items-center w-full'>
+      <main className='flex justify-center items-center w-full box-border flex-col bg-stone-100'>
+        <section className='p-6 text-2xl lg:text-4xl box-border mt-5 md:w-1/2 h-full'>
           <form
             action=''
-            className='flex flex-col justify-center items-center mx-auto gap-2'
+            onSubmit={handleSubmit}
+            className='grid gap-2 grid-cols-1 box-border place-content-center max-w-5/6'
           >
-            <div className='flex justify-center flex-row box-border bg-white rounded-lg w-4/5'>
-              <span className='flex items-center justify-center flex-col border-r-2 border-stone-600 box-border flex-grow'>
+            <div className='flex box-border rounded-lg'>
+              <div className="w-650 flex flex-col md:flex-row mx-auto">
+              <span className='flex flex-col md:border-r-2 border-stone-600 box-border flex-grow'>
                 <label
                   htmlFor='systolic'
-                  className='bg-stone-300 w-full text-center rounded-ss-lg '
+                  className='bg-stone-300 w-full text-center rounded-t-lg md:rounded-tr-none p-2 '
                 >
                   Systolic
                 </label>
@@ -24,16 +81,17 @@ const BloodPressureForm = () => {
                   type='number'
                   name='systolic'
                   id='systolic'
-                  className='form-input w-full border-0 bg-inherit text-center focus:ring-0'
+                  className='form-input text-2xl md:text-3xl w-full border-0 bg-inherit text-center focus:ring-0 bg-white md:rounded-bl-lg'
                   min={40}
                   max={400}
                   defaultValue={40}
+                  onChange={handleChange}
                 />
               </span>
               <span className='flex items-center justify-center flex-col flex-grow'>
                 <label
                   htmlFor='diastolic'
-                  className='bg-stone-300 w-full text-center'
+                  className='bg-stone-300 w-full text-center p-2'
                 >
                   Diastolic
                 </label>
@@ -41,16 +99,17 @@ const BloodPressureForm = () => {
                   type='number'
                   name='diastolic'
                   id='diastolic'
-                  className='form-input w-full border-none bg-inherit text-center focus:ring-0'
+                  className='form-input text-2xl md:text-3xl w-full border-none bg-inherit text-center focus:ring-0 bg-white'
                   min={40}
                   max={400}
                   defaultValue={40}
+                  onChange={handleChange}
                 />
               </span>
-              <span className='flex items-center justify-center flex-col border-l-2 border-stone-600 flex-grow'>
+              <span className='flex items-center justify-center flex-col md:border-l-2 border-stone-600 flex-grow'>
                 <label
                   htmlFor='pulse'
-                  className='bg-stone-300 w-full text-center rounded-se-lg '
+                  className='bg-stone-300 p-2 w-full text-center md:rounded-se-lg '
                 >
                   Pulse
                 </label>
@@ -58,60 +117,61 @@ const BloodPressureForm = () => {
                   type='number'
                   name='pulse'
                   id='pulse'
-                  className='form-input w-full border-none bg-inherit border-l-2 text-center focus:ring-0'
+                  className='form-input text-2xl md:text-3xl w-full border-none bg-inherit border-l-2 text-center focus:ring-0 rounded-b-lg bg-white'
                   min={25}
                   max={250}
                   defaultValue={25}
+                  onChange={handleChange}
                 />
               </span>
+              </div>
             </div>
-            <div className='flex flex-row justify-around items-center w-4/5 mt-4'>
-              <span>
-                <label htmlFor='date' className='block'>
-                  Date:
-                </label>
-                <input
-                  type='date'
-                  name='date'
-                  id='date'
-                  className='form-input rounded-lg px-2'
-                  required
-                />
-              </span>
-              <span>
-                <label htmlFor='time' className='block'>
-                  Time:
-                </label>
-                <input
-                  type='time'
-                  name='time'
-                  id='time'
-                  className='form-input rounded-lg px-2'
-                  required
-                />
-              </span>
-            </div>
-            <div className='w-4/5 flex flex-col justify-start p-6 mt-4'>
-              <label htmlFor='note' className='block'>
+            <span className='sm:col-span-2'>
+            <label htmlFor='date' className='flex text-3xl text-gray-500 left-0 justify-start mt-10 mb-5'>
+                Date:
+              </label>
+              <input
+                type='date'
+                name='date'
+                id='date'
+                className='w-full rounded-lg text-2xl p-5'
+                required
+                onChange={handleChange}
+              />
+              <label htmlFor='time' className='flex text-3xl text-gray-500 left-0 justify-start mt-10 mb-5'>
+                Time:
+              </label>
+              <input
+                type='time'
+                name='time'
+                id='time'
+                className='form-time w-full rounded-lg text-2xl p-5'
+                onChange={handleChange}
+              />
+            </span>
+            <span className='sm:col-span-2'>
+              <label htmlFor='note' className='flex text-3xl text-gray-500 left-0 justify-start mb-2 mt-4'>
                 Note:
               </label>
-              <textarea
-                name='note'
-                id='note'
-                cols='30'
-                rows='2'
-                className='form-textarea rounded-lg grow resize-none'
-              ></textarea>
-            </div>
-            <div className='flex justify-center my-4'>
-              <button className='rounded-full font-bold text-3xl px-5 py-3 bg-rose-400 text-white'>
+              <input
+                type='text'
+                name="note"
+                className='form-text rounded-lg text-2xl p-4 w-full mb-5'
+                required
+                onChange={handleChange}
+              />
+            </span>
+            <span className='flex justify-center sm:col-span-2'>
+              <button className='block rounded-full font-bold text-3xl px-5 py-3 my-4 bg-rose-400 text-white'>
                 Save Record
               </button>
-            </div>
+            </span>
           </form>
         </section>
-      </div>
-    </main>
+        </main>
+        </div>
+        </div>
+    </>
   );
 };
 

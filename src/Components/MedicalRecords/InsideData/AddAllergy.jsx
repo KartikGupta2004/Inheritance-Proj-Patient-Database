@@ -3,35 +3,45 @@ import { Link } from 'react-router-dom'
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 
 function AddAllergy() {
+  const currentDate = () =>{
+    const date = new Date().toJSON().slice(0,10);
+    return date;
+}
+const handleSubmit = (e) =>{
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+    if(data.title === '') return;
+    console.log(data);
+    e.currentTarget.reset();
+}
   return (
     <>
     <div className='bg-fuchsia-50 h-fit mx-auto'>
-    <div className=' py-3 flex flex-wrap border-b-2 border-black items-center justify-center '>
-    <Link exact to='/allergy'>
-    <MdOutlineKeyboardArrowLeft className='text-4xl ml-1 md:ml-3 sm:6xl md:text-7xl'/>
+    <div className="flex justify-center items-center w-full py-3 border-b-2 border-rose-400">
+      <Link exact to='/allergy'>
+    <MdOutlineKeyboardArrowLeft className='text-4xl ml-1 md:ml-3 sm:6xl md:text-7xl text-black'/>
     </Link>
-    <p className='text-2xl sm:text-4xl lg:text-6xl lg:pl-40'>Allergy</p>
-    <div className='flex justify-end items-end ml-auto'>
-    <div>
-    <div className='flex text-3xl lg:text-5xl mr-10 lg:mr-0'>
-    <div class="flex mx-auto w-24 sm:w-auto text-white bg-red-500 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full px-5 py-2.5 text-center mr-4 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
-    <img className='hidden sm:flex w-10 sm:w-12 md:w-16 mr-4' src="Medical page/tick.png" alt="" />
-    <p className='text-xl  sm:text-3xl md:text-4xl sm:mt-1 md:mt-3 justify center items-center'>SAVE</p>
+        <h1 className='block mb-0 w-5/6 text-2xl sm:text-4xl lg:text-5xl py-4 px-8 text-rose-400 box-border font-bold '>
+          Allergy
+        </h1>
     </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    <div className='h-1/2 flex flex-col text-3xl sm:text-5xl text-start Login:ml-5 justify-center mx-auto'>
-        <div className='mt-40 mb-20'>
+    <form  id='allergy' onSubmit={handleSubmit} className='h-1/2 flex flex-col text-3xl sm:text-5xl text-start Login:ml-5 mx-auto'>
+        <div className='mt-40 mb-20 justify-center'>
       <p className=' ml-3 text-gray-400 font-medium'>Title<span className='text-red-600'>*</span></p>
-      <input className='text-2xl sm:text-5xl my-5 ml-1 border-2  border-gray-200 rounded-lg max-w-7xl ' type="text" name="" id="" />
+      <input className='text-2xl sm:text-5xl my-5 ml-1 border-2  border-gray-200 rounded-lg max-w-7xl ' type="text" name="title" id="title" required/>
       </div>
       <div className='mb-40 mt-20'>
       <p className=' ml-3 text-gray-400 font-medium'>Date:</p>
-      <input className='text-2xl sm:text-5xl my-5 ml-1 border-2  border-gray-200 rounded-lg max-w-7xl ' type="text" name="" id="" />
+      <input className='form-input text-2xl sm:text-5xl my-5 ml-1 border-2  border-gray-200 rounded-lg max-w-7xl ' type="date" name="date" id="date" defaultValue={currentDate()}/>
       </div>
-    </div>
+      <div className='flex justify-center my-4 hover:cursor-pointer'>
+              <button className='rounded-full font-bold px-5 py-3 bg-rose-400 text-white'onClick={() => document.getElementById("submit-button").click()}>
+                Save Record
+              </button>
+            </div>
+      <input type="submit" id='submit-button' hidden/>
+    </form>
     </div>
     </>
   )

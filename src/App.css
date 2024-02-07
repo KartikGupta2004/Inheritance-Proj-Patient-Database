@@ -1,4 +1,4 @@
-@media(min-width:640px) {
+@media(min-width:1050px) {
   #root {
     margin: auto;
     padding: 2rem;
@@ -49,7 +49,7 @@
 }
 
 .header{
-  min-height: 100vh;
+  /* height:100vh; */
   width: 100%;
   background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)),url("Assets/background.jpg") ;
   background-position: center;
@@ -120,6 +120,11 @@ nav i img{
   margin: 10px 0 40px;
   font-size: 50px;
 }
+@media(max-width:768px) {
+  .text_box p{
+font-size: 20px;
+  }
+}
 
 .sign_up{
   font-size: 30px;
@@ -130,6 +135,11 @@ nav i img{
   background: transparent;
   position: relative;
   cursor: pointer;
+}
+@media(max-width:768px) {
+  .sign_up{
+font-size: 20px;
+  }
 }
 .sign_up:hover{
   border: 1px solid #f44336;

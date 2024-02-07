@@ -5,11 +5,12 @@ import { MdOutlineFeaturedPlayList } from "react-icons/md";
 import { BiCog } from "react-icons/bi";
 import { AiTwotoneFileExclamation } from "react-icons/ai";
 import { MdLocalPharmacy } from "react-icons/md";
-import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./SidebarMenu";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { CiLogin } from "react-icons/ci";
+import { FaUserDoctor } from "react-icons/fa6";
+import { useState, useEffect } from "react";
 
 const routes = [
   {
@@ -23,64 +24,42 @@ const routes = [
     icon: <MdOutlineFeaturedPlayList />
   },
   {
-    path: "/messages",
+    path: "/medicalnews",
     name: "Medical News",
     icon: <MdMessage />,
   },
   {
-    path: "/order",
+    path: "/nearbypharmacy",
     name: "Pharmacy Finder",
     icon: <MdLocalPharmacy />,
   },
   {
-    path: "user/:userid",
-    name: "Users",
-    icon: <FaUser />,
-  },
-  {
-    path: "/file-manager",
-    name: "File Manager",
-    icon: <AiTwotoneFileExclamation />,
-    subRoutes: [
-      {
-        path: "/settings/profile",
-        name: "Profile ",
-        icon: <FaUser />,
-      },
-      {
-        path: "/settings/2fa",
-        name: "2FA",
-        icon: <FaLock />,
-      },
-      {
-        path: "/settings/billing",
-        name: "Billing",
-        icon: <FaMoneyBill />,
-      },
-    ],
+    path: "/appointment",
+    name: "Appointment",
+    icon: <FaUserDoctor />,
   },
   {
     path: "/settings",
     name: "Settings",
     icon: <BiCog />,
-    exact: true,
-    subRoutes: [
-      {
-        path: "/settings/profile",
-        name: "Profile ",
-        icon: <FaUser />,
-      },
-      {
-        path: "/settings/2fa",
-        name: "2FA",
-        icon: <FaLock />,
-      },
-      {
-        path: "/settings/billing",
-        name: "Billing",
-        icon: <FaMoneyBill />,
-      },
-    ],
+    // exact: true,
+    // subRoutes: [
+    //   {
+    //     path: "/settings/profile",
+    //     name: "Profile ",
+    //     icon: <FaUser />,
+    //   },
+      // {
+      //   path: "/settings/2fa",
+      //   name: "2FA",
+      //   icon: <FaLock />,
+      // },
+      // {
+      //   path: "/settings/billing",
+      //   name: "Billing",
+      //   icon: <FaMoneyBill />,
+      // },
+    // ],
   },
   {
     path: "/login",
@@ -92,6 +71,22 @@ const routes = [
 const SideBar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const closeSidebar = () => {
+    setIsOpen(false);
+  };
+  useEffect(() => {
+    // Add event listener to close sidebar on click outside
+    if (isOpen) {
+      document.addEventListener("click", closeSidebar);
+    } else {
+      document.removeEventListener("click", closeSidebar);
+    }
+
+    // Cleanup the event listener when component unmounts
+    return () => {
+      document.removeEventListener("click", closeSidebar);
+    };
+  }, [isOpen]);
   const inputAnimation = {
     hidden: {
       width: 0,
@@ -131,7 +126,7 @@ const SideBar = ({ children }) => {
       <div className="main-container">
         <motion.div
           animate={{
-            width: isOpen ? "200px" : "45px",
+            width: isOpen ? "250px" : "45px",
 
             transition: {
               duration: 0.5,
@@ -140,6 +135,7 @@ const SideBar = ({ children }) => {
             },
           }}
           className={`sidebar`}
+          onClick={(e) => e.stopPropagation()}
         >
           <div className="top_section">
             <AnimatePresence>
@@ -149,16 +145,16 @@ const SideBar = ({ children }) => {
                   initial="hidden"
                   animate="show"
                   exit="hidden"
-                  className="logo"
+                  className="logo mb-0"
                 >
                   MedVault
                 </motion.h1>
               )}
             </AnimatePresence>
 
-            <div className="text-2xl pr-3">
-              < GiHamburgerMenu onClick={toggle} />
-            </div>
+            <div className={`text-3xl ml-1 ${isOpen ? 'pr-3' : ''}`}>
+  <GiHamburgerMenu onClick={toggle} />
+</div>
           </div>
           <section className="routes ">
             {routes.map((route, index) => {
@@ -177,7 +173,7 @@ const SideBar = ({ children }) => {
                 <NavLink
                   to={route.path}
                   key={index}
-                  className="link"
+                  className='link no-underline text-3xl'
                   activeClassName="active"
                 >
                   <div className="icon">{route.icon}</div>
@@ -188,7 +184,7 @@ const SideBar = ({ children }) => {
                         initial="hidden"
                         animate="show"
                         exit="hidden"
-                        className="link_text"
+                        className="link_text text-xl"
                       >
                         {route.name}
                       </motion.div>

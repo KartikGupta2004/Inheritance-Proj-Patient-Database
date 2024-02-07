@@ -6,7 +6,6 @@ import { Outlet } from 'react-router-dom'
 import SideBar from "./Components/Sidebar/Sidebar.jsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Media from 'react-media';
-import Users from "./Components/Sidebar/Users";
 import FileManager from "./Components/Sidebar/FileManager.jsx";
 import Setting from "./Components/Sidebar/Setting.jsx";
 
@@ -19,7 +18,6 @@ function App() {
       <Media query="(max-width: 1024px)">
       <SideBar>
         <Routes path='/' element={<App/>}>
-          <Route path="users" element={<Users />} />
           <Route path="file-manager" element={<FileManager />} />
           <Route path="settings" element={<Setting />} />
         </Routes>

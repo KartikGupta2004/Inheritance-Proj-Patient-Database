@@ -49,7 +49,7 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
   }, [isOpen]);
   return (
     <>
-      <div className="menu" onClick={toggleMenu}>
+      <div className="menu text-3xl" onClick={toggleMenu}>
         <div className="menu_item">
           <div className="icon">{route.icon}</div>
           <AnimatePresence>
