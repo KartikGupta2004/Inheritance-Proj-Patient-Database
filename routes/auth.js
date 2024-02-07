@@ -86,7 +86,11 @@ router.post('/login/',[
         const data={user:{id:user.id}}
         const authToken=jwt.sign(data,JWT_SECRET)
         console.log(authToken);
-        res.status(200).json({authToken})
+        if(req.body.Role!==user.Role){
+            return res.status(400).json({error:'Please login with correct Role'})
+        }
+
+        res.status(200).json({authToken:authToken,Role:user.Role})
     }
     catch(err){
         console.error(err.message)
