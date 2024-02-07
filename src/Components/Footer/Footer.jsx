@@ -3,29 +3,23 @@ import {Link} from 'react-router-dom'
 
 export default function Footer() {
     return (
-        <footer className="bg-white border-y text-4xl">
+        <footer className="bg-white border-y text-md sm:text-xl md:text-2xl lg:text-3xl">
             <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-                <div className="md:flex md:justify-between">
-                    <div className="mb-6 md:mb-0">
-                        <Link to="/" className="flex items-center">
-                            <img
-                                src="/vite.svg"
-                                className="mr-3 h-16"
-                                alt="Logo"
-                            />
-                        </Link>
+                <div className="lg:flex md:justify-between">
+                    <div className=" mb-6 lg:mb-0 flex justify-center items-center">
+                        <img className="w-20 mr-5" src="Medical page/Logo.png" alt="" />
                     </div>
                     <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                         <div>
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">Resources</h2>
-                            <ul className="text-gray-500 font-medium">
+                            <ul className="text-gray-500 font- pl-0">
                                 <li className="mb-4">
-                                    <Link to="/" className="hover:underline">
+                                    <Link to="/" className="no-underline text-gray-900 hover:text-black hover:underline">
                                         Home
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/about" className="hover:underline">
+                                    <Link to="/about" className="no-underline text-gray-900 hover:text-black hover:underline">
                                         About
                                     </Link>
                                 </li>
@@ -33,11 +27,11 @@ export default function Footer() {
                         </div>
                         <div>
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">Follow us</h2>
-                            <ul className="text-gray-500 font-medium">
+                            <ul className="text-gray-500 font- pl-0">
                                 <li className="mb-4">
                                     <a
-                                        href="/"//change
-                                        className="hover:underline"
+                                        href="https://github.com/KartikGupta2004/Inheritance-Proj-Patient-Database"
+                                        className="no-underline text-gray-900 hover:text-black hover:underline"
                                         target="_blank"
                                         rel="noreferrer"
                                     >
@@ -45,7 +39,7 @@ export default function Footer() {
                                     </a>
                                 </li>
                                 <li>
-                                    <Link to="/" className="hover:underline">
+                                    <Link to="/" className="no-underline text-gray-900 hover:text-black hover:underline">
                                         Discord
                                     </Link>
                                 </li>
@@ -53,14 +47,14 @@ export default function Footer() {
                         </div>
                         <div>
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">Legal</h2>
-                            <ul className="text-gray-500 font-medium">
+                            <ul className="text-gray-500 font- pl-0">
                                 <li className="mb-4">
-                                    <Link to="#" className="hover:underline">
+                                    <Link to="#" className="no-underline text-gray-900 hover:text-black hover:underline">
                                         Privacy Policy
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" className="hover:underline">
+                                    <Link to="#" className="no-underline text-gray-900 hover:text-black hover:underline">
                                         Terms &amp; Conditions
                                     </Link>
                                 </li>
@@ -70,17 +64,17 @@ export default function Footer() {
                 </div>
                 <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8" />
                 <div className="sm:flex sm:items-center sm:justify-between">
-                    <span className="text-sm text-gray-500 sm:text-center">
+                    <span className="text-sm text-gray-500 sm:text-center text-md sm:text-xl md:text-2xl">
                         © 2023
-                        <a href="/" className="hover:underline">
+                        <a href="/" className="no-underline text-gray-900 hover:text-black hover:underline">
                             MedVault
                         </a>
                         . All Rights Reserved.
                     </span>
-                    <div className="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
+                    <div className="flex mt-4 space-x-5 sm:justify-center sm:items-center sm:mt-0 ">
                         <Link to="#" className="text-gray-500 hover:text-gray-900">
                             <svg
-                                className="w-4 h-4"
+                                className="sm:mb-5 w-4 h-4 md:w-5 md:h-5"
                                 aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="currentColor"
@@ -96,7 +90,7 @@ export default function Footer() {
                         </Link>
                         <Link to="#" className="text-gray-500">
                             <svg
-                                className="w-4 h-4"
+                                className=" sm:mb-5 w-4 h-4 md:w-5 md:h-5"
                                 aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="currentColor"
@@ -108,7 +102,7 @@ export default function Footer() {
                         </Link>
                         <Link to="#" className="text-gray-500">
                             <svg
-                                className="w-4 h-4"
+                                className="sm:mb-5 w-4 h-4 md:w-5 md:h-5"
                                 aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="currentColor"
@@ -124,7 +118,7 @@ export default function Footer() {
                         </Link>
                         <Link to="#" className="text-gray-500">
                             <svg
-                                className="w-4 h-4"
+                                className="sm:mb-5 w-4 h-4 md:w-5 md:h-5"
                                 aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="currentColor"
@@ -140,7 +134,7 @@ export default function Footer() {
                         </Link>
                         <Link to="#" className="text-gray-500">
                             <svg
-                                className="w-4 h-4"
+                                className="sm:mb-5 w-4 h-4 md:w-5 md:h-5"
                                 aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="currentColor"

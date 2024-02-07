@@ -1,14 +1,29 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 
 function Login() {
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+    Role:""
+  });
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+    console.log(data);
+    e.currentTarget.reset();
+  }
+  const handleOptionClick = (option) => {
+    setData({ ...data, Role: option });
+  };
   return (
     <>
     <div className="flex justify-center border-white bg-MedicalBg">
-    <div className="flex flex-col justify-center items-center bg-white  sm:rounded-lg w-full sm:max-w-xl lg:rounded-none lg:rounded-l-lg lg:mr-0 lg:ml-0 lg:max-w-3xl my-60">
-      <div className='flex flex-col justify-center items-center min-h-loginh'>
-      <span className="flex font-bold text-4xl mb-4">
-        Sign In to MedVault
+    <div className="flex flex-col justify-center items-center bg-white  sm:rounded-lg w-full sm:max-w-xl lg:rounded-none lg:rounded-l-lg lg:mr-0 lg:ml-0 lg:max-w-3xl md:my-40 Login:my-60">
+      <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center min-h-loginh'>
+      <span className="flex font-bold mr-4 md:mr-0 text-3xl md:text-4xl mb-4">
+        Sign in To MedVault
       </span>
       <div className="flex  items-center cursor-pointer bg-blue-50 hover:bg-blue-100 border-2 border-gray-100 rounded-lg mt-3 mb-3 px-7 py-2 text-xl">
         <img
@@ -16,7 +31,7 @@ function Login() {
           alt=""
           className="w-8 h-auto bg-white p-2 rounded-3xl mr-3"
         />
-        <a href="www.google.com">
+        <a href="www.google.com" className="no-underline text-black">
           <span className="font-medium">Sign in With Google</span>
         </a>
       </div>
@@ -27,15 +42,35 @@ function Login() {
       <input
         type="email"
         placeholder="Email"
-        className="px-4 h-12 text-xl my-2 border border-1 outline-gray-200 border-gray-200 rounded-lg mt-10 font-medium pl-6 bg-gray-100 flex items-center focus:bg-white"
+        className="px-4 h-12 text-xl mt-10 mb-4 border border-1 outline-gray-200 border-gray-200 rounded-lg font-medium pl-6 bg-gray-100 flex items-center focus:bg-white"
       />
       <input
         type="password"
         placeholder="Password"
-        className="flex px-4 text-xl h-12 my-2 py-3 border border-1 outline-gray-200 items-center  border-gray-200 rounded-lg font-medium pl-6 bg-gray-100 focus:bg-white"
+        className="flex px-4 text-xl h-12 mt-2 mb-4 py-3 border border-1 outline-gray-200 items-center  border-gray-200 rounded-lg font-medium pl-6 bg-gray-100 focus:bg-white"
       />
-      <button className="px-4 h-12 my-2 py-7 text-3xl rounded-lg mt-10 font-medium pl-6 flex text-white bg-blue-600 hover:bg-blue-800 justify-center w-56 items-center">
-        <img className="mr-2" src="Assets/login.svg" alt="" />
+      <div className='mt-8 mb-6 flex justify-center '>
+              <button
+                type='button'
+                onClick={() => handleOptionClick("Patient")}
+                className={`${
+                  data.Role === "Patient" ? "bg-black text-white" : "text-black"
+                } rounded-2xl py-3 px-3 text-xl mr-10 w-48 hover:cursor-pointer active:bg-black active:text-white`}
+              >
+                Patient
+              </button>
+              <button
+                type='button'
+                onClick={() => handleOptionClick("Doctor")}
+                className={`${
+                  data.Role === "Doctor" ? "bg-black text-white" : "text-black"
+                } rounded-2xl py-3 px-3 text-xl mr-10 w-48 hover:cursor-pointer active:bg-black active:text-white`}
+              >
+                Doctor
+              </button>
+            </div>
+      <button className="px-4 h-12 my-2 py-7 text-2xl rounded-lg mt-10 font-medium pl-6 flex text-white bg-blue-600 hover:bg-blue-800 justify-center w-56 items-center" type='submit'>
+        <img className="mr-2 h-8" src="Assets/login.svg" alt="" />
         Sign In
       </button>
       <span className="text-gray-600 decoration-gray-600 flex underline decoration-dotted text-xl my-4 cursor-pointer">
@@ -43,13 +78,14 @@ function Login() {
       </span>
       <span className="text-gray-500 font-medium text-xl flex mt-3">
         Don't have an account?
-        <Link exact to='signup'>
-        <span className="decoration-gray-500 ml-1 underline decoration-dotted cursor-pointer">
+        <Link exact to='/signup'
+        className="no-underline text-gray-500 hover:text-black">
+        <span className="decoration-gray-500 hover:decoration-black ml-1 underline decoration-dotted cursor-pointer">
           Sign Up
         </span>
         </Link>
       </span>
-    </div>
+    </form>
     </div>
     <div className="hidden Login:flex justify-center items-center bg-current py-42 rounded-r-xl my-60">
       <img

@@ -6,7 +6,6 @@ import { RouterProvider, createBrowserRouter, createRoutesFromElements } from 'r
 import Home from './Components/Home/Home.jsx'
 import About from './Components/About/About.jsx'
 import { Route } from 'react-router-dom' 
-import User from './Components/User/User.jsx'
 import RecordForm from './Components/Records/Recordform.jsx'
 import Features from './Components/Records/medicalrecords.jsx'
 import Login from './Components/Login/Login.jsx'
@@ -30,6 +29,13 @@ import MedicalVisitForm from './Components/MedicalRecords/InsideData/MedicalVisi
 import BloodGlucoseForm from './Components/MedicalRecords/InsideData/BloodGlucoseForm.jsx'
 import BloodPressureForm from './Components/MedicalRecords/InsideData/BloodPressureForm.jsx'
 import PrescriptionForm from './Components/MedicalRecords/InsideData/PrescriptionForm.jsx'
+import AddExamination from './Components/MedicalRecords/InsideData/AddExamination.jsx'
+import AddOxygenSat from './Components/MedicalRecords/InsideData/AddOxygenSat.jsx'
+import NearbyPharmacy from './Components/Maps/NearbyPharmacy.jsx'
+import AddLabTest from './Components/MedicalRecords/InsideData/AddLabTest.jsx'
+import AddAppointment from './Components/Appointment/AddAppointment.jsx'
+import News from './Components/Medical News/News.jsx'
+import { AuthContextProvider } from './Components/Context/AuthContext.jsx'
 
 //Method 1
 // const router= createBrowserRouter([
@@ -54,34 +60,41 @@ const router= createBrowserRouter(
         <Route path='about'element={<About/>}/>
         <Route path='recordform' element={<RecordForm/>}/>
         <Route path='medicalrecords' element={<Features/>}/>
-        <Route path='user/:userid' element={<User/>}/>
         <Route path='login' element={<Login/>}/>
-        <Route exact path='login/signup' element={<SignUp/>}/>
+        <Route path='signup' element={<SignUp/>}/>
         <Route path='appointment' element={<Appointment/>}/>
+        <Route path='addappointment' element={<AddAppointment/>}/>
         <Route path='visit' element={<MedicalVisit/>}/>
         <Route path='addvisit' element={<MedicalVisitForm/>}/>
         <Route path='allergy' element={<Allergy/>}/>
+        <Route path='addallergy' element={<AddAllergy/>}/>
         <Route path='bloodglucose' element={<BloodGlucose/>}/>
         <Route path='addbloodglucose' element={<BloodGlucoseForm/>}/>
         <Route path='bloodpressure' element={<BloodPressure/>}/>
         <Route path='addbloodpressure' element={<BloodPressureForm/>}/>
         <Route path='doctor' element={<Doctor/>}/>
         <Route path='examination' element={<Examination/>}/>
+        <Route path='addexamination' element={<AddExamination/>}/>
         <Route path='labtest' element={<LabTest/>}/>
+        <Route path='addlabtest' element={<AddLabTest/>}/>
         <Route path='oxygensat' element={<OxygenSat/>}/>
+        <Route path='addoxygensat' element={<AddOxygenSat/>}/>
         <Route path='prescriptions' element={<Presciptions/>}/>
         <Route path='addprescriptions' element={<PrescriptionForm/>}/>
         <Route path='familyhistory' element={<Family/>}/>
-        <Route path='vaccine' element={<Vaccine/>}/>
         <Route path='addfamily' element={<AddFamily/>}/>
+        <Route path='vaccine' element={<Vaccine/>}/>
         <Route path='addvaccine' element={<AddVaccine/>}/>
-        <Route path='addallergy' element={<AddAllergy/>}/>
+        <Route path='nearbypharmacy' element={<NearbyPharmacy/>}/>
+        <Route path='medicalnews' element={<News/>}/>
     </Route>
   )
 )
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <AuthContextProvider>
     <RouterProvider router={router}/>
+    </AuthContextProvider>
   </React.StrictMode>,
 )

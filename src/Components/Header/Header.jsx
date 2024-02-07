@@ -3,30 +3,28 @@ import { Link, NavLink } from "react-router-dom";
 
 export default function Header() {
   return (
-    <header className="hidden lg:flex items-center bg-navbarcol justify-between text-5xl shadow border-y-2 border-black z-50 p-0 m-0 h-32">
-      <div className="flex items-center">
-        <Link to="/" className="flex items-center">
+    <header className="hidden lg:flex items-center decoration-0 bg-navbarcol justify-between text-4xl 1500:text-5xl shadow border-y-2 border-black z-100 p-0 m-0 h-32">
+      <div className="hidden 1500:flex items-center">
           <img className="ml-6 w-20" src="Medical page/Logo.png" alt="" />
-        </Link>
       </div>
 
-      <div className="text-white flex items-center">
-        <ul className="flex flex-row font-medium space-x-8 mt-0">
+      <div className="text-white flex items-center ">
+        <ul className="flex flex-row font-medium space-x-8 items-center mb-0">
           <li>
             <NavLink
               to="/"
               className={({ isActive }) =>
-                `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-red-700" : "text-white"} lg:hover:bg-transparent lg:border-0 hover:text-red-700 `
+                `no-underline block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-red-700" : "text-white"} lg:hover:bg-transparent lg:border-0 hover:text-red-700 `
               }
             >
               Home
             </NavLink>
           </li>
-          <li>
+          <li className="hidden 1500:flex">
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-red-700" : "text-white"} lg:hover:bg-transparent lg:border-0 hover:text-red-700 `
+                `no-underline block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-red-700" : "text-white"} lg:hover:bg-transparent lg:border-0 hover:text-red-700 `
               }
             >
               AboutUs
@@ -36,7 +34,7 @@ export default function Header() {
             <NavLink
               to="/medicalrecords"
               className={({ isActive }) =>
-                `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-red-700" : "text-white"} lg:hover:bg-transparent lg:border-0 hover:text-red-700 `
+                `no-underline block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-red-700" : "text-white"} lg:hover:bg-transparent lg:border-0 hover:text-red-700 `
               }
             >
               Features
@@ -46,7 +44,7 @@ export default function Header() {
             <NavLink
               to="/appointment"
               className={({ isActive }) =>
-                `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-red-700" : "text-white"} lg:hover:bg-transparent lg:border-0 hover:text-red-700 `
+                `no-underline block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-red-700" : "text-white"} lg:hover:bg-transparent lg:border-0 hover:text-red-700 `
               }
             >
               Appointment
@@ -58,7 +56,7 @@ export default function Header() {
       <div className="flex items-center">
         <Link
           to="/login"
-          className="text-white hover:bg-black focus:ring-4 font-medium rounded-xl px-4 md:px-5 py-2 md:py-2.5 mr-2 focus:outline-none"
+          className="text-white hover:bg-black focus:ring-4 font-medium rounded-xl px-4 md:px-5 py-2 md:py-2.5 mr-2 focus:outline-none no-underline"
         >
           Log in
         </Link>
