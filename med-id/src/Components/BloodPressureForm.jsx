@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useAuthContext } from "../Hooks/useAuthContext";
 
 const BloodPressureForm = () => {
   const [data, setData] = useState({
@@ -18,7 +19,6 @@ const BloodPressureForm = () => {
 
   const saveData = async () => {
     try {
-      const authToken = localStorage.getItem("auth-token");
       const response = await fetch(
         "http://localhost:5000/api/blood_pressure/addpressurerec/",
         {

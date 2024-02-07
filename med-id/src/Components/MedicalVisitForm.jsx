@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import doctor from '../icons/doctor.png';
+import { useAuthContext } from "../Hooks/useAuthContext";
 const MedicalVisitForm = () => {
   const [data, setData] = useState({
     date:"",
@@ -17,7 +18,6 @@ const MedicalVisitForm = () => {
 
   const saveData = async () => {
     try {
-      const authToken = localStorage.getItem("auth-token");
       const response = await fetch(
         "http://localhost:5000/api/medical_visits/addvisit",
         {
@@ -25,7 +25,7 @@ const MedicalVisitForm = () => {
           headers: {
             Accept: "*/*",
             "Content-Type": "application/json",
-            "auth-token": authToken,
+            token: user.authToken,
           },
           body: JSON.stringify(data),
         }

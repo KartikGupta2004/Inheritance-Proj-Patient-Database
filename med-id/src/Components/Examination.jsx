@@ -3,9 +3,6 @@ import chooseFile from "../icons/add.png";
 import doctor from "../icons/doctor.png";
 import { useAuthContext } from "../Hooks/useAuthContext";
 
-//NEED TO MODIFY SYMPTOMS AND DIAGNOSES FUNCTIONALITY --- DONE
-//CLOUDINARY
-
 const Examination = () => {
   const [data, setData] = useState({
     symptoms: [],
@@ -19,15 +16,16 @@ const Examination = () => {
     heightunit: "in",
     date: "",
     doctor: "",
-    rec_note: ""
-  })
+    rec_note: "",
+  });
 
-  const {user} = useAuthContext();
-  
-  let symptom = "", diagnosis = "";
+  const { user } = useAuthContext();
+
+  let symptom = "",
+    diagnosis = "";
   const handleFileUpload = (e) => {
-    setData({ ...data, file: e.target.files[0] })
-  }
+    setData({ ...data, file: e.target.files[0] });
+  };
   const handleAddSym = (e) => {
     if (!symptom) return;
     setData({ ...data, symptoms: [...data.symptoms, symptom] });
@@ -48,10 +46,9 @@ const Examination = () => {
   };
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
-  }
+  };
   const saveData = async () => {
     try {
-      const authToken = localStorage.getItem("auth-token");
       const response = await fetch(
         "http://localhost:5000/api/oxygen_saturation/addoxygen",
         {
@@ -86,9 +83,9 @@ const Examination = () => {
       heightunit: "in",
       date: "",
       doctor: "",
-      rec_note: ""
-    })
-  }
+      rec_note: "",
+    });
+  };
   return (
     <div className='flex justify-center items-center h-full box-border'>
       <main className='flex justify-center items-center w-full h-fit box-border flex-col bg-stone-100'>
@@ -117,7 +114,9 @@ const Examination = () => {
                   onChange={handleFileUpload}
                   required
                 />
-                {data.file && (<p className="text-sm"> File: {data.file.name}</p>)}
+                {data.file && (
+                  <p className='text-sm'> File: {data.file.name}</p>
+                )}
               </label>
             </span>
             <span>
@@ -349,7 +348,10 @@ const Examination = () => {
               />
             </span>
             <span className='flex justify-center sm:col-span-2'>
-              <button type='submit' className='rounded-full font-bold text-lg px-4 py-2 bg-rose-400 text-white'>
+              <button
+                type='submit'
+                className='rounded-full font-bold text-lg px-4 py-2 bg-rose-400 text-white'
+              >
                 Save Record
               </button>
             </span>

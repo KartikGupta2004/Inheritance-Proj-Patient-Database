@@ -9,7 +9,6 @@ const OxygenSat = () => {
     time: "",
     rec_note: "",
   });
-  const [error, setError] = useState(null);
   const { user } = useAuthContext();
 
   const handleChange = (e) => {
@@ -40,11 +39,6 @@ const OxygenSat = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!user) {
-      setError("Please login first");
-      return;
-    }
-    console.log(user.authToken);
     saveData();
     console.log(data);
     setData({
@@ -158,11 +152,6 @@ const OxygenSat = () => {
                 Save Record
               </button>
             </div>
-            {error && (
-              <div className=' p-2 border-2 text-red-600 border-red-600 rounded-lg'>
-                {error}
-              </div>
-            )}
           </form>
         </section>
       </div>

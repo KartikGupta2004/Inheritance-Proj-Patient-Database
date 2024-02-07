@@ -1,50 +1,47 @@
 import { React, useState } from "react";
 import chooseFile from "../icons/add.png";
 import doctor from "../icons/doctor.png";
-
-//CHANGE DRUG --- DONE
-// FILE UPLOAD USING CLOUDINARY
+import { useAuthContext } from "../Hooks/useAuthContext";
 
 const PrescriptionForm = () => {
-  const [data, setData] = useState(
-    {
-      drugs: [],
-      file: null,
-      date: "",
-      doctor: "",
-      rec_note: ""
-    })
+  const [data, setData] = useState({
+    drugs: [],
+    file: null,
+    date: "",
+    doctor: "",
+    rec_note: "",
+  });
   const drugTrack = {
     drug: "",
     dose: "",
   };
-const saveData = async () => {
-  try {
-    const authToken = localStorage.getItem("auth-token");
-    const response = await fetch(
-      "http://localhost:5000/api/record/addrecord",
-      {
-        method: "POST",
-        headers: {
-          Accept: "*/*",
-          "Content-Type": "application/json",
-          "auth-token": authToken,
-        },
-        body: JSON.stringify(data),
-      }
-    );
-    const responseData = await response.json();
-    console.log(responseData);
-  } catch (error) {
-    console.log(`Error: ${error.error}`);
-  }
-};
+  const { user } = useAuthContext();
+  const saveData = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/record/addrecord",
+        {
+          method: "POST",
+          headers: {
+            Accept: "*/*",
+            "Content-Type": "application/json",
+            token: user.authToken,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const responseData = await response.json();
+      console.log(responseData);
+    } catch (error) {
+      console.log(`Error: ${error.error}`);
+    }
+  };
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
-  }
+  };
   const handleFileUpload = (e) => {
-    setData({ ...data, file: e.target.files[0] })
-  }
+    setData({ ...data, file: e.target.files[0] });
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     saveData();
@@ -54,9 +51,9 @@ const saveData = async () => {
       file: null,
       date: "",
       doctor: "",
-      rec_note: ""
+      rec_note: "",
     });
-  }
+  };
   const handleAdd = (e) => {
     if (drugTrack.dose === "" || drugTrack.drug === "") return;
     setData({ ...data, drugs: [...data.drugs, drugTrack] });
@@ -66,7 +63,7 @@ const saveData = async () => {
   const handleDelete = (drugBox) => {
     const newDrugs = data.drugs.filter((d) => {
       return JSON.stringify(d) !== JSON.stringify(drugBox);
-    })
+    });
     setData({ ...data, drugs: newDrugs });
   };
   return (
@@ -87,7 +84,7 @@ const saveData = async () => {
                 className='w-fit flex flex-col items-center cursor-pointer bg-white rounded-lg p-4 border border-black'
               >
                 <img src={chooseFile} alt='Choose File' className='w-8 h-8' />
-                <p>{data.file ? "Change File": "Upload Prescription"}</p>
+                <p>{data.file ? "Change File" : "Upload Prescription"}</p>
                 <input
                   type='file'
                   name='file'
@@ -96,7 +93,9 @@ const saveData = async () => {
                   className='hidden'
                   onChange={handleFileUpload}
                 />
-                {data.file && (<p className="text-sm"> File: {data.file.name}</p>)}
+                {data.file && (
+                  <p className='text-sm'> File: {data.file.name}</p>
+                )}
               </label>
             </span>
             <span className='flex flex-col sm:col-span-2'>
@@ -130,7 +129,10 @@ const saveData = async () => {
                   <ul>
                     {data.drugs.map((drugBox, id) => {
                       return (
-                        <li key={id} className='flex flex-row justify-evenly capitalize'>
+                        <li
+                          key={id}
+                          className='flex flex-row justify-evenly capitalize'
+                        >
                           <span className='border-b-2 border-rose-400 w-2/6 text-center'>
                             {drugBox.drug}
                           </span>
@@ -202,7 +204,10 @@ const saveData = async () => {
               />
             </span>
             <span className='flex justify-center sm:col-span-2'>
-              <button type='submit' className='rounded-full font-bold text-lg px-4 py-2 bg-rose-400 text-white'>
+              <button
+                type='submit'
+                className='rounded-full font-bold text-lg px-4 py-2 bg-rose-400 text-white'
+              >
                 Save Record
               </button>
             </span>
