@@ -82,6 +82,7 @@ router.delete('/deleteexam/:id',fetchuser,async(req,res)=>{
 router.post('/addimage',upload.single('file'),fetchuser,async(req,res)=>{
     try{
     const file=req.file
+    console.log(file);
     console.log(file.originalname);
     const image=await UploadOnCloudinary(file.path)
     console.log(image);
