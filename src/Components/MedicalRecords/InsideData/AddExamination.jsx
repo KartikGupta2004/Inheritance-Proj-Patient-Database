@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { useAuthContext } from "../../Hooks/useAuthContext";
@@ -19,11 +19,26 @@ const Examination = () => {
     rec_note: "",
   });
 
+  let imageData;
+
   const [file, setFile] = useState(null);
 
   const { user } = useAuthContext();
 
   const navigate = useNavigate();
+
+  useEffect(() =>{
+    if(imageData && imageData.imageURL && imageData.imageID){
+      console.log('USE EFFECT RAN');
+      setData((data) => {
+        return {
+          ...data,
+          imageURL: imageData.imageURL,
+          imageID: imageData.imageID,
+        };
+      });
+    }
+  }, [imageData])
 
   let symptom = "",
     diagnosis = "";
@@ -86,14 +101,10 @@ const Examination = () => {
   };
   const saveData = async () => {
     try {
-      const imageData = await imageUpload();
+      imageData = await imageUpload();
       console.log(imageData);
-      setData({
-        ...data,
-        imageURL: imageData.imageURL,
-        imageID: imageData.imageID,
-      });
       console.log(data);
+      console.log(imageData);
       const response = await fetch(
         "http://localhost:5000/api/examination/addexam",
         {

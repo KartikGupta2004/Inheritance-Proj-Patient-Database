@@ -34,7 +34,7 @@ function Login() {
   };
   return (
     <>
-      <div className='flex justify-center border-white bg-MedicalBg'>
+      <div className='flex justify-center border-white bg-MedicalBg bg-no-repeat bg-cover'>
         <div className='flex flex-col justify-center items-center bg-white  sm:rounded-lg w-full sm:max-w-xl lg:rounded-none lg:rounded-l-lg lg:mr-0 lg:ml-0 lg:max-w-3xl md:my-40 Login:my-60'>
           <form
             onSubmit={handleSubmit}

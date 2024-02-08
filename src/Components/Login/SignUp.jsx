@@ -18,13 +18,11 @@ function SignUp() {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(data);
     await signup({ ...data });
-    if(error) return;
+    if (error) return;
     setData({
       firstname: "",
       lastname: "",
@@ -33,11 +31,11 @@ function SignUp() {
       password: "",
     });
     setConfirmPassword("");
-    navigate('/');
+    navigate("/");
   };
   return (
     <>
-      <div className='flex justify-center items-center text-lg h-screen bg-MedicalBg'>
+      <div className='flex justify-center items-center text-lg h-screen bg-MedicalBg bg-no-repeat bg-cover'>
         <div className='hidden 1500:flex flex-col justify-center items-center h-full sm:text-5xl max-w-screen-md bg-gray-700 my-10'>
           <p className=' sm:text-5xl font-medium text-white'>Welcome Back!</p>
           <p className='mb-4 mt-7 text-3xl text-white'>
