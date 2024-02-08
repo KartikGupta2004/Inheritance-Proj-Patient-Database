@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { useAuthContext } from "../../Hooks/useAuthContext";
 const OxygenSat = () => {
@@ -11,6 +11,7 @@ const OxygenSat = () => {
     rec_note:""
   })
   const { user } = useAuthContext();
+  const navigate = useNavigate();
   const handleChange = (e) =>{
     setData({...data, [e.target.name]:e.target.value});
   }
@@ -45,6 +46,7 @@ const OxygenSat = () => {
       time:"",
       rec_note:""
     });
+    navigate('/oxygensat');
   }
   return (
     <>

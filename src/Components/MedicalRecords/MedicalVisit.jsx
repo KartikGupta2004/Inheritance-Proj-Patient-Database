@@ -12,12 +12,12 @@ import { MdOutlineCancel } from "react-icons/md";
 function MedicalVisit() {
   const [visits,setVisits]= useState([]);
 
-  useEffect(()=>{
-    fetch('http://localhost:5000/api/medical_visit/addvisit')
-    .then((response)=>response.json())
-    .then((data)=>setVisits(data))
-    .catch((error)=>console.error("Error fetching visits:",error));
-  },[])
+  // useEffect(()=>{
+  //   fetch('http://localhost:5000/api/medical_visit/addvisit')
+  //   .then((response)=>response.json())
+  //   .then((data)=>setVisits(data))
+  //   .catch((error)=>console.error("Error fetching visits:",error));
+  // },[])
 
   const handleDelete =(visitId)=>{
     fetch("",//URL HERE

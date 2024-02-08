@@ -1,26 +1,31 @@
-const url = 'https://newsapi.org/v2/top-headlines?' +
-  'country=in&' +
-  'category=health&' +
-  'apiKey=cd147b5e8e1f453d9055367c17437d34';
+const url =
+  "https://newsapi.org/v2/top-headlines?" +
+  "country=in&" +
+  "category=health&" +
+  "apiKey=cd147b5e8e1f453d9055367c17437d34";
 
 fetch(url)
-  .then(response => {
+  .then((response) => {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     return response.json();
   })
-  .then(data => {
+  .then((data) => {
     let something = data.articles;
     let list = [];
 
-    for (let i = 0; i < 20; i++) {
-      if (something[i].source.name !== "YouTube" && something[i].urlToImage !== null && something[i].description !== "") {
+    for (let i = 0; i < 11; i++) {
+      if (
+        something[i].source.name !== "YouTube" &&
+        something[i].urlToImage !== null &&
+        something[i].description !== ""
+      ) {
         list.push(something[i]);
       }
     }
 
-    for (let m = 1; m < 10; m++) {
+    for (let m = 1; m < 20; m++) {
       if (list[m]) {
         document.getElementById(`img${m}`).src = list[m].urlToImage;
         document.getElementById(`title${m}`).innerText = list[m].title;
@@ -28,10 +33,8 @@ fetch(url)
         document.getElementById(`link${m}`).href = list[m].url;
       }
     }
-
-    console.log(list[3]);
   })
-  .catch(error => {
+  .catch((error) => {
     // Handle errors
-    console.error('Fetch error:', error.message);
+    console.error("Fetch error:", error);
   });
