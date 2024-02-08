@@ -216,8 +216,9 @@ nav .icon{
   transition: 0.5s;
 }
 .course_col h3{
+  font-size:xx-large;
   text-align: center;
-  font-weight: 600;
+  font-weight: 800;
   margin: 10px 0;
 }
 .course_col:hover{
@@ -251,6 +252,7 @@ nav .icon{
 }
 
 .pharmacy_finder{
+      margin-top: 150px;
       min-height: 100vh;
       width: 100%;
       background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)),url("Assets/map.png") ;

@@ -61,8 +61,8 @@ const Examination = () => {
       setData({ ...data, [e.target.name]: e.target.value });
     }
   };
-  const saveData = async () => {
-    let imageData;
+
+  const imageUpload = async () => {
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -78,18 +78,20 @@ const Examination = () => {
           body: formData,
         }
       );
-      imageData = await upload.json();
-      console.log(imageData);
+      return upload.json();
     } catch (err) {
       console.log(`Error:${err}`);
-      return;
+      return err;
     }
+  };
+  const saveData = async () => {
     try {
-      setData((curr) => {
-        const newData = { ...curr };
-        newData.imageID = imageData.imageID;
-        newData.imageURL = imageData.imageURL;
-        return newData;
+      const imageData = await imageUpload();
+      console.log(imageData);
+      setData({
+        ...data,
+        imageURL: imageData.imageURL,
+        imageID: imageData.imageID,
       });
       console.log(data);
       const response = await fetch(
@@ -129,7 +131,7 @@ const Examination = () => {
       rec_note: "",
     });
     setFile(null);
-    // navigate("/examination");
+    navigate("/examination");
   };
   return (
     <>

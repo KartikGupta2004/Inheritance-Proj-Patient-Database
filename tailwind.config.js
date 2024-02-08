@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-      'MedicalBg':"url('Assets/About_bg.jpg')"
+      'MedicalBg':"url('Assets/login-bg.jpg')"
     },
     screens: {
       'Login': '1700px',

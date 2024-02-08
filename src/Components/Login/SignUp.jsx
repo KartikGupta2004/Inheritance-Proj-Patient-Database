@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSignUp } from "../Hooks/useSignUp";
 
 function SignUp() {
@@ -12,6 +12,7 @@ function SignUp() {
   });
   const [confirmPassword, setConfirmPassword] = useState("");
   const { signup, error, isLoading } = useSignUp();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -32,6 +33,7 @@ function SignUp() {
       password: "",
     });
     setConfirmPassword("");
+    navigate('/');
   };
   return (
     <>

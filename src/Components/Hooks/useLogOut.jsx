@@ -1,5 +1,5 @@
 import { useAuthContext } from "./useAuthContext";
-export const useLogout = () =>{
+export const useLogOut = () =>{
 const {dispatch} = useAuthContext();
 
     const logout = () =>{

@@ -109,8 +109,8 @@ function Examination() {
         </div>
 
         <div className='flex justify-center items-center min-h-screen'>
-          <div>
-            <div className='flex flex-col justify-center items-center'>
+          <div className='w-full'>
+            <div className='flex flex-col justify-center items-center gap-3'>
               {examination.length === 0 ? (
                 <div className='text-2xl sm:text-4xl lg:text-5xl space-y-2 '>
                   <img
@@ -128,7 +128,7 @@ function Examination() {
                 examination.map((examination) => (
                   <div
                     key={examination._id}
-                    className='flex justify-center items-center'
+                    className='flex justify-center items-center w-6 sm:w-9/12'
                   >
                     <div className='w-fit sm:w-4/5 text-center '>
                       <div className='flex h-fit justify-between items-center p-3 sm:p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700'>
@@ -210,19 +210,21 @@ function Examination() {
                               </tr>
                               <tr>
                                 <td className='text-gray-500 px-14 border-r-2 border-yellow-700'>
-                                  {`${examination.temp} ${examination.temp_unit}`}
+                                  {`${examination.temperature} ${
+                                    examination.tempunit === "f" ? "℉" : "℃"
+                                  }`}
                                 </td>
                                 <td className='text-gray-500 px-8 border-r-2 border-yellow-700'>
-                                  {`${examination.wt} ${examination.wt_unit}`}
+                                  {`${examination.height} ${examination.weightunit}`}
                                 </td>
                                 <td className='text-gray-500 px-8'>
-                                  {`${examination.ht} ${examination.ht_unit}`}
+                                  {`${examination.height} ${examination.heightunit}`}
                                 </td>
                               </tr>
                             </table>
                             {/* ASK DIVYANSHU/GAURAV ul */}
-                            <div className='flex mt-3 '>
-                              <p className='flex mt-4 ml-4 justify-start text-gray-500'>
+                            <div className='flex mt-4 '>
+                              <p className='flex justify-start text-gray-500'>
                                 Symptoms:
                               </p>
                               <ul>

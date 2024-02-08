@@ -15,11 +15,11 @@ function Allergy() {
   const { user } = useAuthContext();
   useEffect(() => {
     if (user) {
-      getOxygen();
+      getAllergy();
     }
   }, [data, user]);
 
-  const getOxygen = async () => {
+  const getAllergy = async () => {
     try {
       const response = await fetch(
         "http://localhost:5000/api/allergy/fetchallallergy/",
@@ -79,20 +79,22 @@ function Allergy() {
             </div>
           </div>
         </div>
-        <div className='flex justify-center items-start min-h-screen w-full p-5'>
-          <div className="w-full">
+        <div className={'flex justify-center min-h-screen w-full p-5'+ (data.length===0 ? 'items-center':'items-start')}>
+          <div className='w-full h-full'>
             <div className='flex flex-col justify-center items-center w-full gap-3'>
               {data.length === 0 ? (
-                <div className='text-2xl sm:text-4xl lg:text-5xl space-y-2'>
-                  <img
-                    className='w-40 lg:w-72 flex mx-auto justify-center'
-                    src='Medical page/sneeze.jpg'
-                    alt=''
-                  />
-                  <p className='font-bold'>No Data</p>
-                  <div className='text-gray-400'>
-                    <p>Click Add Button and</p>
-                    <p>Enter Allergy Data</p>
+                <div className="flex justify-center items-center w-full h-full">
+                  <div className='text-2xl sm:text-4xl lg:text-5xl space-y-2'>
+                    <img
+                      className='w-40 lg:w-72 flex mx-auto justify-center'
+                      src='Medical page/sneeze.jpg'
+                      alt=''
+                    />
+                    <p className='font-bold'>No Data</p>
+                    <div className='text-gray-400'>
+                      <p>Click Add Button and</p>
+                      <p>Enter Allergy Data</p>
+                    </div>
                   </div>
                 </div>
               ) : (
