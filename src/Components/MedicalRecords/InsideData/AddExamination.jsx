@@ -27,9 +27,9 @@ const Examination = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() =>{
-    if(imageData && imageData.imageURL && imageData.imageID){
-      console.log('USE EFFECT RAN');
+  useEffect(() => {
+    if (imageData && imageData.imageURL && imageData.imageID) {
+      console.log("USE EFFECT RAN");
       setData((data) => {
         return {
           ...data,
@@ -38,7 +38,7 @@ const Examination = () => {
         };
       });
     }
-  }, [imageData])
+  }, [imageData]);
 
   let symptom = "",
     diagnosis = "";
@@ -132,7 +132,7 @@ const Examination = () => {
       diagnoses: [],
       imageURL: "",
       temperature: "",
-      tempunit: "℉",
+      tempunit: "f",
       weight: "",
       weightunit: "kg",
       height: "",
@@ -454,9 +454,9 @@ const Examination = () => {
                   <textarea
                     name='rec_note'
                     id='note'
-                    cols='43'
+                    cols='30'
                     rows='1'
-                    className='form-textarea rounded-lg px-2 resize-none box-border shrink w-full'
+                    className='form-input text-xl rounded-lg p-4 resize-none box-border w-full'
                     onChange={handleChange}
                     value={data.rec_note}
                   />
