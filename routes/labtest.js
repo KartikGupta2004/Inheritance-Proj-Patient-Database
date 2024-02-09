@@ -13,10 +13,10 @@ router.get('/fetchalltest',fetchuser,async(req,res)=>{
 // ROUTE2:Add a new Note using:POST "/api/auth/addnote" .Login Required
 router.post('/addtest',fetchuser ,async(req,res)=>{
     try{
-    const {rec_type,rec_note,doctor,date,imageID,imageURL}=req.body;
+    const {tests,rec_note,doctor,date,imageID,imageURL}=req.body;
     console.log(req.body);
     const note=new Notes({
-        rec_type,rec_note,doctor,date,imageID,imageURL,user:req.user.id
+        tests,rec_note,doctor,date,imageID,imageURL,user:req.user.id
     })
     const savedNote=await note.save()
     res.json(savedNote)
@@ -28,12 +28,12 @@ router.post('/addtest',fetchuser ,async(req,res)=>{
 })
 //ROUTE3:Update an existing note using PUT:/api/notes/updatenote.Login Required
 router.put('/updatetest/:id',fetchuser,async(req,res)=>{
-   const {rec_type,rec_note,doctor,date,imageID,imageURL}=req.body;
+   const {tests,rec_note,doctor,date,imageID,imageURL}=req.body;
     // Create a newNote object
     const newNote={}
     if(date){newNote.date=date}
     if(rec_note){newNote.rec_note=rec_note}
-    if(rec_type){newNote.rec_type=rec_type}
+    if(tests){newNote.tests=tests}
     if(doctor){newNote.doctor=doctor}
     if(imageID){newNote.imageID=imageID}
     if(imageURL){newNote.imageURL=imageURL}
@@ -51,12 +51,12 @@ router.put('/updatetest/:id',fetchuser,async(req,res)=>{
 } )
 // ROUTE4:Deleting a note using DELETE:/api/notes/deletenote.Login Required
 router.delete('/deletetest/:id',fetchuser,async(req,res)=>{
-   const {rec_type,rec_note,doctor,date,imageID,imageURL}=req.body;
+   const {tests,rec_note,doctor,date,imageID,imageURL}=req.body;
     // Create a newNote object
     const newNote={}
     if(date){newNote.date=date}
     if(rec_note){newNote.rec_note=rec_note}
-    if(rec_type){newNote.rec_type=rec_type}
+    if(tests){newNote.tests=tests}
     if(doctor){newNote.doctor=doctor}
     if(imageID){newNote.imageID=imageID}
     if(imageURL){newNote.imageURL=imageURL}

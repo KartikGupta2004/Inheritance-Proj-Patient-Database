@@ -8,7 +8,7 @@ module.exports=mongoose.model('lab_test', new Schema({
     doctor:{
         type:String,required:true
     },
-    rec_type:{
+    tests:{
         type:Array,required:true
     },
     date:{
