@@ -19,4 +19,7 @@ module.exports=mongoose.model('medical_visits', new Schema({
     time:{
         type:String
     },
+    name:{
+
+    }
 }))

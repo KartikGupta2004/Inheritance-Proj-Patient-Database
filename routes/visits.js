@@ -1,6 +1,6 @@
 const express=require('express')
 const router=express.Router();
-const fetchuser=require('../middleware/fetchuser')
+const fetchuser=require('../middleware/fetchuser.js')
 const { body, validationResult } = require('express-validator');
 const Notes=require('../models/medical_visit.js')
 const {authRole}=require('../middleware/authRole.js')

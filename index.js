@@ -20,6 +20,9 @@ app.use('/api/oxygen_saturation',require('./routes/oxygen'))
 app.use('/api/family_history',require('./routes/family'))
 app.use('/api/allergy',require('./routes/allergy'))
 app.use('/api/vaccine',require('./routes/vaccine'))
+app.use('/api/doctorinfo',require('./routes/docinfo'))
+app.use('/api/doctor',require('./routes/doctor'))
+
 
 
 app.get('/', (req, res) => { 
