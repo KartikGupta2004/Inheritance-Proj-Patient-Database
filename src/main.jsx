@@ -55,7 +55,7 @@ import PP_TC from './Components/PP&TC.jsx'
 //   }
 // ])
 //Method 2
-const router= createBrowserRouter(
+const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App/>}>
         <Route path=''element={<Home/>}/>
@@ -93,12 +93,12 @@ const router= createBrowserRouter(
         <Route path='doctordashboard' element={<DoctorDashboard/>}/>
     </Route>
   )
-)
+);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthContextProvider>
-    <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </AuthContextProvider>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);

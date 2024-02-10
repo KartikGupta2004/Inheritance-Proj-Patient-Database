@@ -18,13 +18,11 @@ function SignUp() {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(data);
     await signup({ ...data });
-    if(error) return;
+    if (error) return;
     setData({
       firstname: "",
       lastname: "",

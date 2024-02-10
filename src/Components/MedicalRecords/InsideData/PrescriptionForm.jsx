@@ -5,7 +5,6 @@ import { useAuthContext } from "../../Hooks/useAuthContext";
 const PrescriptionForm = () => {
   const [data, setData] = useState({
     drugs: [],
-    file: null,
     date: "",
     doctor: "",
     rec_note: "",
@@ -70,7 +69,6 @@ const PrescriptionForm = () => {
     await saveData();
     setData({
       drugs: [],
-      file: null,
       date: "",
       doctor: "",
       rec_note: "",
