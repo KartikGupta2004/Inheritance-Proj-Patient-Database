@@ -38,6 +38,8 @@ import News from './Components/Medical News/News.jsx'
 import { AuthContextProvider } from './Components/Context/AuthContext.jsx'
 import DoctorDashboard from './Components/Doctor/DoctorDashboard.jsx'
 import PP_TC from './Components/PP&TC.jsx'
+import Profile from './Components/Profile/Profile.jsx'
+import ContactUs from './Components/About/Contact.jsx'
 
 //Method 1
 // const router= createBrowserRouter([
@@ -91,6 +93,8 @@ const router = createBrowserRouter(
         <Route path='medicalnews' element={<News/>}/>
         <Route path='privacy policy and terms and conditions' element={<PP_TC/>}/>
         <Route path='doctordashboard' element={<DoctorDashboard/>}/>
+        <Route path='profile' element={<Profile/>}/>
+        <Route path='contactus' element={<ContactUs/>}/>
     </Route>
   )
 );

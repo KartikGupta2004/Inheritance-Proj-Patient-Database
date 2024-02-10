@@ -1,7 +1,4 @@
 import React from 'react'
-import { FaFilter } from "react-icons/fa";
-import { TbArrowsSort } from "react-icons/tb";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { CiLocationOn } from "react-icons/ci";
@@ -15,21 +12,16 @@ function Doctor() {
     <MdOutlineKeyboardArrowLeft className='text-4xl ml-1 md:ml-3 sm:6xl md:text-7xl text-black'/>
     </Link>
         <h1 className='block text-center w-5/6 text-2xl sm:text-4xl lg:text-5xl py-4 px-8 text-rose-400 box-border font-bold '>
-          Doctor's List
+          Doctor List
         </h1>
     <div className='flex justify-end items-end ml-auto'>
     <div>
-    <div className='flex text-3xl lg:text-5xl space-x-2 mr-10 lg:mr-0 lg:space-x-4'>
-    <FaFilter/>
-    <TbArrowsSort />
-    <BsThreeDotsVertical />
-    </div>
     </div>
     </div>
     </div>
     
     <div className=" items-center justify-center py-24 lg:my-6">
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mx-auto flex-wrap mt-6 max-w-screen-1576">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mx-auto flex-wrap mt-6 max-w-screen-1576">
 
 <div className="px-10 bg-white md:px-0 text-sm text-gray-700 font-medium lg:text-lg mt-4 w-full max-w-lg mx-auto">
     <div className='flex justify-center mt-5'>

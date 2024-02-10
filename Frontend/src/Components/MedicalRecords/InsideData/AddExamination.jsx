@@ -468,7 +468,7 @@ const Examination = () => {
                   />
                 </span>
                 <span className='flex justify-center sm:col-span-2'>
-                <button
+                  <button
                     disabled={isLoading}
                     className='rounded-full font-bold text-3xl px-5 py-4 bg-rose-400 text-white mt-3 disabled:opacity-75'
                   >

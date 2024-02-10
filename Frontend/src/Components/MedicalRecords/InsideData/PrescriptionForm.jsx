@@ -49,6 +49,18 @@ const PrescriptionForm = () => {
         newData["imageID"] = imageData.imageID;
         return newData;
       });
+      const response = await fetch(
+        "http://localhost:5000/api/record/addrecord",
+        {
+          method: "POST",
+          headers: {
+            Accept: "*/*",
+            "Content-Type": "application/json",
+            token: user.authToken,
+          },
+          body: JSON.stringify(data),
+        }
+      );
       const responseData = await response.json();
       console.log(responseData);
     } catch (error) {
@@ -99,7 +111,7 @@ const PrescriptionForm = () => {
     <>
       <div className='bg-fuchsia-50 h-fit mx-auto'>
         <div className='flex justify-center items-center w-full py-3 border-b-2 border-rose-400'>
-        <Link exact='true' to='/prescriptions'>
+          <Link exact='true' to='/prescriptions'>
             <MdOutlineKeyboardArrowLeft className='text-4xl ml-1 md:ml-3 sm:6xl md:text-7xl text-black' />
           </Link>
           <h1 className='block text-center w-5/6 text-2xl sm:text-4xl lg:text-5xl py-4 px-8 text-rose-400 box-border font-bold mb-0 '>
@@ -125,7 +137,7 @@ const PrescriptionForm = () => {
                       className='w-8 h-8'
                     />
                     <p className='text-3xl mt-4 text-gray-500'>
-                    {file ? "Change File" : "Upload Prescription"}
+                      {file ? "Change File" : "Upload Prescription"}
                     </p>
                     <input
                       type='file'
@@ -269,7 +281,7 @@ const PrescriptionForm = () => {
                   />
                 </span>
                 <span className='flex justify-center sm:col-span-2'>
-                <button
+                  <button
                     disabled={isLoading}
                     className='rounded-full font-bold text-2xl lg:text-4xl px-5 py-4 bg-rose-400 text-white mt-3 disabled:opacity-75'
                   >

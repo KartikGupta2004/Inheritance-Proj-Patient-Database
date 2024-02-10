@@ -37,7 +37,7 @@ function NearbyPharmacy() {
   ];
   return (
     <>
-    <div className="bg-fuchsia-50 relatives text-sm mr-5 sm:text-xl md:text-2xl lg:text-3xl">
+    <div className="bg-fuchsia-50 relatives text-sm mr-5 sm:text-xl -z-0 relative md:text-2xl lg:text-3xl">
     <div className='py-3 flex flex-wrap border-b-2 border-rose-400 items-center '>
     <Link exact to='/'>
     <MdOutlineKeyboardArrowLeft className='text-4xl ml-1 md:ml-3 sm:6xl md:text-7xl text-black'/>

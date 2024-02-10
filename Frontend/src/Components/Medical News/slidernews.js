@@ -22,7 +22,7 @@ fetch(url)
       const descElement = document.getElementById(`slide${slideIndex}_desc`);
 
       // Log to check if elements are found
-      console.log(imgElement, headElement, descElement);
+      // console.log(imgElement, headElement, descElement);
 
       if (imgElement && headElement && descElement) {
         imgElement.src = article.urlToImage;

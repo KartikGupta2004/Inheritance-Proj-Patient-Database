@@ -113,8 +113,8 @@ function Allergy() {
                         />
                         <div className='flex items-center ml-6 no-underline'>
                           <div className='mb-0 text-md md:text-2xl lg:text-3xl font-medium tracking-tight text-gray-900 dark:text-white'>
-                            <p className='mb-0'>{data.title}</p>
-                            <p className='mb-0 text-gray-400'>{data.date}</p>
+                            <p className='mb-0 text-start capitalize'>{data.title}</p>
+                            <p className='mb-0 text-gray-400 text-start'>{data.date}</p>
                           </div>
                         </div>
                       </div>

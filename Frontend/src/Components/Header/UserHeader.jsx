@@ -77,7 +77,11 @@ export default function UserHeader() {
           to='/login'
           className='text-white hover:bg-black focus:ring-4 font-medium rounded-xl px-4 md:px-5 py-2 md:py-2.5 mr-2 focus:outline-none no-underline'
         >
-          {user ? <p>Logout</p> : <p>Login</p>}
+          {user ? (
+            <p className='mb-0'>Logout</p>
+          ) : (
+            <p className='mb-0'>Login</p>
+          )}
         </Link>
         <Link>
           <img

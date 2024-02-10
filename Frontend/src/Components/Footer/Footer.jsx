@@ -14,13 +14,13 @@ export default function Footer() {
                             <h2 className="mb-6 text-2xl font-bold text-white uppercase">Resources</h2>
                             <ul className="text-white font- pl-0">
                                 <li className="mb-4">
-                                    <Link to="/" className="no-underline text-white hover:text-black hover:underline">
-                                        Home
+                                    <Link to="/about" className="no-underline text-white hover:text-black hover:underline">
+                                        About
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/about" className="no-underline text-white hover:text-black hover:underline">
-                                        About
+                                    <Link to="/contactus" className="no-underline text-white hover:text-black hover:underline">
+                                        ContactUs
                                     </Link>
                                 </li>
                             </ul>

@@ -354,7 +354,7 @@ nav .icon{
 .main-container {
   display: flex;
   position: absolute;
-  z-index: 2;
+  z-index: 200;
   right: 0px;
 }
 .title {
