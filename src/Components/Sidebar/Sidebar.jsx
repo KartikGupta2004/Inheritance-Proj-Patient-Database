@@ -34,7 +34,7 @@ const routes = [
     icon: <MdLocalPharmacy />,
   },
   {
-    path: "/appointment",
+    path: "/doctor",
     name: "Appointment",
     icon: <FaUserDoctor />,
   },
