@@ -1,7 +1,13 @@
 const mongoose=require('mongoose')
 const {Schema}=mongoose
 const UserSchema = new Schema({
-    name:{
+    firstname:{
+        type:String,required:true
+    },
+    lastname:{
+        type:String,required:true
+    },
+    mobile:{
         type:String,required:true
     },
     email:{
@@ -10,9 +16,17 @@ const UserSchema = new Schema({
     password:{
         type:String,required:true,unique:true
     },
+    
     date:{
         type:String,default:Date.now
     },
+    Role:{
+        type:String,required:false,default:"User"
+    }
+    
 
 })
-module.exports=mongoose.model('user',UserSchema)
+// const user=mongoose.model('user',UserSchema)
+// user.createIndexes()
+// module.exports=user
+module.exports=mongoose.model('users',UserSchema)
