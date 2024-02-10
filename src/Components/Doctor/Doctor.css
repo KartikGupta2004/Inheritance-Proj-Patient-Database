@@ -241,6 +241,7 @@ body {
 	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 	grid-gap: 24px;
 	margin-top: 36px;
+	padding:0;
 }
 #content main .box-info li {
 	padding: 24px;
@@ -322,7 +323,7 @@ body {
 	border-bottom: 1px solid var(--grey);
 }
 #content main .table-data .order table td {
-	/* padding: 16px 0; */
+	padding: 16px 0;
 }
 #content main .table-data .order table tr td:first-child {
 	display: flex;

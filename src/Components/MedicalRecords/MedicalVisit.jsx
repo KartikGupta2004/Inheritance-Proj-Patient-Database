@@ -22,7 +22,6 @@ const [visits, setVisits] = useState([]);
   const [isSortDropdownVisible, setSortDropdownVisible] = useState(false);
   const [isOptionsDropdownVisible, setIsOptionsDropdownVisible] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const [data, setData] = useState([]);
   const { user } = useAuthContext();
 
   const initDrop = {};
@@ -30,12 +29,12 @@ const [visits, setVisits] = useState([]);
     if (user) {
       getData();
     }
-  }, [user, data]);
+  }, [user]);
 
   const getData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/medical_visit/fetchallvisits",
+        "http://localhost:5000/api/medical_visits/fetchallvisits",
         {
           method: "GET",
           headers: {
@@ -46,8 +45,8 @@ const [visits, setVisits] = useState([]);
       );
       const responseData = await response.json();
       console.log(responseData);
-      setData([...responseData]);
-      for (let val of data) {
+      setVisits([...responseData]);
+      for (let val of visits) {
         initDrop[val._id] = false;
       }
     } catch (error) {
@@ -177,14 +176,14 @@ const [visits, setVisits] = useState([]);
       )}
     </div>
     {filteredVisits.map((visit) => (
-        <div key={visit.id}>
+        <div key={visit._id}>
           {/* Display visit details */}
         </div>
       ))}
       {/* Display all visits if not filtered */}
       {!filteredVisits.length &&
         visits.map((visit) => (
-          <div key={visit.id}>
+          <div key={visit._id}>
             {/* Display visit details */}
           </div>
         ))}
@@ -262,10 +261,10 @@ const [visits, setVisits] = useState([]);
 
     </div>
         {/*Yaha pe changes hai */}
-        <div className={`flex justify-center min-h-screen w-full p-5 ${data.length === 0 ? "items-center":"items-start"}`}>
+        <div className={`flex justify-center min-h-screen w-full p-5 ${visits.length === 0 ? "items-center":"items-start"}`}>
           <div className="w-screen">
             <div className='flex flex-col justify-center items-center gap-3 w-full'>
-              {data.length === 0 ? (
+              {visits.length === 0 ? (
                 <div className='text-2xl sm:text-4xl lg:text-5xl space-y-2 '>
                   <img
                     className='w-40 lg:w-72 flex mx-auto justify-center'
@@ -279,10 +278,10 @@ const [visits, setVisits] = useState([]);
                   </div>
                 </div>
               ) : (
-                data.map((visit) => (
+                visits.map((visit) => (
                   <div
                     key={visit._id}
-                    className='flex justify-center items-center'
+                    className='flex justify-center items-center w-full sm:w-4/5'
                   >
                     <div className='w-4/5 h-fit p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700'>
                       <div className='flex justify-between'>
@@ -295,7 +294,7 @@ const [visits, setVisits] = useState([]);
                           <div className='flex ml-6 no-underline'>
                             <div className='mb-0 text-md md:text-lg lg:text-2xl font-semibold tracking-tight text-gray-900 dark:text-white'>
                               <div className='flex justify-start'>
-                                <p className='mb-0'>{visit.rec_type}</p>
+                                <p className='mb-0 capitalize'>{visit.rec_type}</p>
                               </div>
                               <div className='flex flex-col md:flex-row '>
                                 <p className='mb-0 md:mr-3'>{visit.date}</p>
@@ -341,11 +340,11 @@ const [visits, setVisits] = useState([]);
                           </div>
                         </div>
                       </div>
-                      <div className='flex justify-start border-t-2 border-yellow-500 mb-0 mt-3 font-semibold text-md md:text-lg lg:text-2xl pt-2'>
-                        Doctor: {visit.doctor}
+                      <div className='flex justify-start border-t-2 border-yellow-500 mb-0 mt-3 font-semibold text-md md:text-lg lg:text-2xl pt-2 capitalize'>
+                        Doctor: {visit.doc_name}
                       </div>
                       <div className='flex justify-start border-t-2 border-yellow-500 mb-0 mt-3 font-semibold text-md md:text-lg lg:text-2xl pt-2'>
-                        Notes: {visit.rec_note}
+                        Notes: {visit.notes}
                       </div>
                     </div>
                   </div>

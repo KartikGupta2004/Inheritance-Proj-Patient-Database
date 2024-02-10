@@ -38,6 +38,7 @@ import News from './Components/Medical News/News.jsx'
 import { AuthContextProvider } from './Components/Context/AuthContext.jsx'
 import DoctorDashboard from './Components/Doctor/DoctorDashboard.jsx'
 import PP_TC from './Components/PP&TC.jsx'
+// import { useAuthContext } from './Components/Hooks/useAuthContext.jsx'
 
 //Method 1
 // const router= createBrowserRouter([

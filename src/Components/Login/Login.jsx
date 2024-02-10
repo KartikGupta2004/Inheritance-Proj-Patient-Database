@@ -8,7 +8,8 @@ function Login() {
     password: "",
     Role: "user",
   });
-  const { login, isLoading, error } = useLogin();
+  const [error, setError] = useState(null);
+  const { login, isLoading } = useLogin();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -16,17 +17,18 @@ function Login() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(data);
-    await login(data);
-    if (error) {
-      console.log(error);
-    } else {
-      setData({
-        email: "",
-        password: "",
-        Role: "",
-      });
-      navigate("/", { replace: true });
+    try {
+       console.log(data);
+       await login(data);
+       setData({
+         email: "",
+         password: "",
+         Role: "",
+       });
+       navigate("/", { replace: true });
+    } catch (err) {
+      setError(err);
+      console.log("Error: ", err);
     }
   };
   const handleOptionClick = (option) => {
@@ -78,7 +80,7 @@ function Login() {
             />
             {error && (
               <div className='mt-2 border-red-600 border-2 p-2 text-lg rounded-lg bg-red-100 text-red-600'>
-                {error}
+                {error.message}
               </div>
             )}
             <div className='mt-8 mb-6 flex justify-center '>
@@ -86,7 +88,9 @@ function Login() {
                 type='button'
                 onClick={() => handleOptionClick("User")}
                 className={`${
-                  data.Role === "User" ? "bg-black text-white" : "text-black border-black border-2"
+                  data.Role === "User"
+                    ? "bg-black text-white"
+                    : "text-black border-black border-2"
                 } rounded-2xl py-3 px-3 text-xl mr-10 w-48 hover:cursor-pointer active:bg-black active:text-white`}
               >
                 Patient
@@ -95,7 +99,9 @@ function Login() {
                 type='button'
                 onClick={() => handleOptionClick("admin")}
                 className={`${
-                  data.Role === "admin" ? "bg-black text-white" : "text-black border-black border-2"
+                  data.Role === "admin"
+                    ? "bg-black text-white"
+                    : "text-black border-black border-2"
                 } rounded-2xl py-3 px-3 text-xl mr-10 w-48 hover:cursor-pointer active:bg-black active:text-white`}
               >
                 Doctor

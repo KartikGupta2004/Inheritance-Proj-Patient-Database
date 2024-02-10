@@ -118,10 +118,10 @@ function Vaccine() {
                           src='Photos/vaccine.png'
                           alt=''
                         />
-                        <div className='flex items-center ml-6 no-underline'>
+                        <div className='flex items-center justify-start ml-6 no-underline'>
                           <div className='mb-0 text-md md:text-2xl lg:text-3xl font-medium tracking-tight text-gray-900 dark:text-white'>
-                            <p className='mb-0'>{vaccine.title}</p>
-                            <p className='mb-0 text-gray-400'>{vaccine.date}</p>
+                            <p className='mb-0 capitalize text-start'>{vaccine.title}</p>
+                            <p className='mb-0 text-gray-400 text-start'>{vaccine.date}</p>
                           </div>
                         </div>
                       </div>

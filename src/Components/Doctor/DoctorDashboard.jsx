@@ -7,18 +7,21 @@ function DoctorDashboard() {
   const { user } = useAuthContext();
   useEffect(() => {
     if (user) {
-      getAllergy();
+      getData();
     }
-  }, [data, user]);
-  const getAllergy = async () => {
+  }, [user]);
+  const getData = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/fetchall`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          token: user.authToken,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:5000/api/doctor/fetchall`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            token: user.authToken,
+          },
+        }
+      );
       const responseData = await response.json();
       setData([...responseData]);
     } catch (error) {
@@ -28,91 +31,82 @@ function DoctorDashboard() {
   return (
     <>
       <div className="bg-[url('Assets/doctordashboard.jpg')] bg-cover bg-center justify-center items-center flex h-screen min-w-[717px]">
-        <section id="content">
+        <section id='content'>
           <main>
-            <div class="head-title">
-              <div class="left">
-                <p className="text-5xl font-bold">Admin Dashboard</p>
+            <div class='head-title'>
+              <div class='left'>
+                <p className='text-5xl font-bold'>Admin Dashboard</p>
               </div>
             </div>
 
-            <ul class="box-info">
+            <ul class='box-info'>
               <li>
-                <i class="bx bxs-calendar-check"></i>
-                <span class="text">
-                  <p className="font-semibold text-3xl">New Patients</p>
-                  <p className="text-3xl mb-2">1020</p>
+                <i class='bx bxs-calendar-check'></i>
+                <span class='text'>
+                  <p className='font-semibold text-3xl'>New Patients</p>
+                  <p className='text-3xl mb-2'>1020</p>
                 </span>
               </li>
               <li>
-                <i class="bx bxs-group"></i>
-                <span class="text">
-                  <p className="font-semibold text-3xl ">Total Patients</p>
-                  <p className="text-3xl mb-2">2834</p>
+                <i class='bx bxs-group'></i>
+                <span class='text'>
+                  <p className='font-semibold text-3xl '>Total Patients</p>
+                  <p className='text-3xl mb-2'>2834</p>
                 </span>
               </li>
             </ul>
 
-            <div class="table-data">
-              <div class="order">
-                <div class="head">
-                  <p className="font-bold text-2xl md:text-3xl lg:text-5xl">Recent Appointments</p>
+            <div class='table-data'>
+              <div class='order'>
+                <div class='head border-b-2 border-gray-800'>
+                  <p className='font-bold text-2xl md:text-3xl lg:text-5xl'>
+                    Recent Appointments
+                  </p>
                 </div>
-                <table>
+                <table className='table-auto mt-2'>
                   <thead>
-                    <tr className="flex justify-between">
-                      <th className="text-xl md:text-2xl lg:text-3xl ">Patient</th>
-                      <th className="text-xl md:text-2xl lg:text-3xl ">Date of Visit</th>
-                      <th className="text-xl md:text-2xl lg:text-3xl ">Doctor's Name</th>
+                    <tr className=''>
+                      <th className='text-xl md:text-2xl lg:text-3xl text-start'>
+                        Patient
+                      </th>
+                      <th className='text-xl md:text-2xl lg:text-3xl text-start'>
+                        Date of Visit
+                      </th>
+                      <th className='text-xl md:text-2xl lg:text-3xl text-start'>
+                        Doctor's Name
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {/* <tr>
-								<td>
-									<img src="img/people.png"/>
-									<p className='text-2xl'>John Doe</p>
-								</td>
-								<td>01-10-2021</td>
-								<td><span class="status completed">Completed</span></td>
-							</tr> */}
-                    <div
-                      className={`flex justify-center p-5 ${
-                        data.length === 0 ? "items-center" : "items-start"
-                      }`}
-                    >
-                      <div className="">
-                        <div className="flex flex-col justify-center items-center gap-3">
-                          {data.length === 0 ? (
-                            <tr>
-                              <td>
-                                <p className="font-bold text-center text-2xl md:text-3xl lg:text-5xl">
-                                  No Appointment Pending
-                                </p>
-                              </td>
-                            </tr>
-                          ) : (
-                            data.map((data) => (
-                              <div
-                                key={data.id}
-                                className="flex justify-center w-full"
-                              >
-                                <tr className="flex justify-between">
-                                  <td>
-                                    <p className="text-2xl md:text-3xl lg:text-4xl">{data.patient}</p>
-                                  </td>
-                                  <td className="text-2xl md:text-3xl lg:text-4xl">{data.date}</td>
-                                  <td>
-                                    <span className="text-2xl md:text-3xl lg:text-4xl">
-                                      {data.doctor}
-                                    </span>
-                                  </td>
-                                </tr>
-                              </div>
-                            ))
-                          )}
-                        </div>
-                      </div>
-                    </div>
+                    {data.length === 0 ? (
+                      <tr>
+                        <td>
+                          <p className='font-bold text-center text-2xl md:text-3xl lg:text-5xl'>
+                            No Appointment Pending
+                          </p>
+                        </td>
+                      </tr>
+                    ) : (
+                      data.map((data) => (
+                        <tr className=''>
+                          <td>
+                            <p className='text-2xl md:text-3xl lg:text-4xl text-start'>
+                              {data.name}
+                            </p>
+                          </td>
+                          <td className='text-2xl md:text-3xl lg:text-4xl text-start'>
+                            <p>
+                              {data.date} {data.time}
+                            </p>
+                          </td>
+                          <td>
+                            <p className='text-2xl md:text-3xl lg:text-4xl text-start'>
+                              {data.doc_name}
+                            </p>
+                          </td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>
