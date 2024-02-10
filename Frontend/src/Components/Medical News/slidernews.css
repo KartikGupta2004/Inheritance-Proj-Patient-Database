@@ -1,0 +1,38 @@
+.c-item {
+    height: 100vh;
+    /* object-fit: cover; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.c-img {
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6);
+}
+.card-img-top{
+  height: 35vh;
+  object-fit: cover;
+}
+.card-title{
+  height: 15vh;
+  padding-bottom: 10px;
+}
+.card-text{
+  height: 30vh;
+  padding-bottom: 10px;
+}
+@media (max-width:1199px) and (min-width:770px){
+  .card-title{
+      font-size: 14px;
+  }
+  .card-text{
+      font-size: 13px;
+  }
+}
+.card{
+  box-shadow: 0 0 20px 0px rgba(0,0,0,0.2);
+  background:#daeaf5;
+}
