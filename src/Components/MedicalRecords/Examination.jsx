@@ -207,24 +207,28 @@ function Examination() {
                               Vital Signs :
                             </p>
                             <table>
-                              <tr>
-                                <td>Temperature</td>
-                                <td>Weight</td>
-                                <td>Height</td>
-                              </tr>
-                              <tr>
-                                <td className='text-gray-500 px-14 border-r-2 border-yellow-700'>
-                                  {`${examination.temperature} ${
-                                    examination.tempunit === "f" ? "℉" : "℃"
-                                  }`}
-                                </td>
-                                <td className='text-gray-500 px-8 border-r-2 border-yellow-700'>
-                                  {`${examination.height} ${examination.weightunit}`}
-                                </td>
-                                <td className='text-gray-500 px-8'>
-                                  {`${examination.height} ${examination.heightunit}`}
-                                </td>
-                              </tr>
+                              <thead>
+                                <tr>
+                                  <td>Temperature</td>
+                                  <td>Weight</td>
+                                  <td>Height</td>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td className='text-gray-500 px-14 border-r-2 border-yellow-700'>
+                                    {`${examination.temperature} ${
+                                      examination.tempunit === "f" ? "℉" : "℃"
+                                    }`}
+                                  </td>
+                                  <td className='text-gray-500 px-8 border-r-2 border-yellow-700'>
+                                    {`${examination.height} ${examination.weightunit}`}
+                                  </td>
+                                  <td className='text-gray-500 px-8'>
+                                    {`${examination.height} ${examination.heightunit}`}
+                                  </td>
+                                </tr>
+                              </tbody>
                             </table>
                             {/* ASK DIVYANSHU/GAURAV ul */}
                             <div className='flex mt-4 '>
