@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { useAuthContext } from "../../Hooks/useAuthContext";
 const OxygenSat = () => {
@@ -11,6 +11,7 @@ const OxygenSat = () => {
     rec_note:""
   })
   const { user } = useAuthContext();
+  const navigate = useNavigate();
   const handleChange = (e) =>{
     setData({...data, [e.target.name]:e.target.value});
   }
@@ -45,6 +46,9 @@ const OxygenSat = () => {
       time:"",
       rec_note:""
     });
+    navigate("/oxygensat", {
+      state: { refreshTimestamp: Date.now() },
+      replace: true,});
   }
   return (
     <>
@@ -77,7 +81,7 @@ const OxygenSat = () => {
                   type='number'
                   name='result'
                   id='result'
-                  className='form-input w-full border-0 bg-inherit text-center focus:ring-0'
+                  className='form-input text-xl sm:text-2xl md:text-3xl w-full border-0 bg-inherit text-center focus:ring-0'
                   min={90}
                   max={100}
                   onChange={handleChange}
@@ -96,7 +100,7 @@ const OxygenSat = () => {
                   type='number'
                   name='pulse'
                   id='pulse'
-                  className='form-input w-full border-none bg-inherit border-l-2 text-center focus:ring-0'
+                  className='form-input text-xl sm:text-2xl md:text-3xl w-full border-none bg-inherit border-l-2 text-center focus:ring-0'
                   min={25}
                   max={250}
                   onChange={handleChange}
@@ -105,34 +109,35 @@ const OxygenSat = () => {
               </span>
             </div>
             <div className='flex flex-row justify-around items-center w-4/5 mt-4'>
-              <span>
-                <label htmlFor='date' className='block'>
-                  Date:
-                </label>
-                <input
-                  type='date'
-                  name='date'
-                  id='date'
-                  className='form-input rounded-lg px-2'
-                  value={data.date}
-                  onChange={handleChange}
-                  required
-                />
-              </span>
-              <span>
-                <label htmlFor='time' className='block'>
-                  Time:
-                </label>
-                <input
-                  type='time'
-                  name='time'
-                  id='time'
-                  className='form-input rounded-lg px-2'
-                  required
-                  value={data.time}
-                  onChange={handleChange}
-                />
-              </span>
+            <span className='sm:col-span-2'>
+                  <label
+                    htmlFor='date'
+                    className='flex text-3xl text-gray-500 left-0 justify-start mt-5 mb-5'
+                  >
+                    Date:
+                  </label>
+                  <input
+                    type='date'
+                    name='date'
+                    id='date'
+                    className='w-full rounded-lg text-xl sm:text-2xl md:text-3xl p-4'
+                    required
+                    onChange={handleChange}
+                  />
+                  <label
+                    htmlFor='time'
+                    className='flex text-3xl text-gray-500 left-0 justify-start mt-10 mb-5'
+                  >
+                    Time:
+                  </label>
+                  <input
+                    type='time'
+                    name='time'
+                    id='time'
+                    className='form-time w-full rounded-lg text-xl sm:text-2xl md:text-3xl p-4'
+                    onChange={handleChange}
+                  />
+                </span>
             </div>
             <div className='w-4/5 flex flex-col justify-start p-6 mt-4'>
               <label htmlFor='note' className='block mb-4'>
@@ -143,7 +148,7 @@ const OxygenSat = () => {
                 id='note'
                 cols='30'
                 rows='2'
-                className='form-textarea rounded-lg grow resize-none'
+                className='form-textarea text-xl sm:text-2xl rounded-lg grow resize-none'
                 value={data.rec_note}
                 onChange={handleChange}
               ></textarea>

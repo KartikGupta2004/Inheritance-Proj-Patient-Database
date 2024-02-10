@@ -3,35 +3,35 @@ import {Link} from 'react-router-dom'
 
 export default function Footer() {
     return (
-        <footer className="bg-white border-y text-md sm:text-xl md:text-2xl lg:text-3xl">
+        <footer className="bg-navbarcol border-y text-md sm:text-xl md:text-2xl lg:text-3xl">
             <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
                 <div className="lg:flex md:justify-between">
                     <div className=" mb-6 lg:mb-0 flex justify-center items-center">
-                        <img className="w-20 mr-5" src="Medical page/Logo.png" alt="" />
+                        <img className="w-20 mr-5" src="Assets/Logo.png" alt="" />
                     </div>
                     <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                         <div>
-                            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">Resources</h2>
-                            <ul className="text-gray-500 font- pl-0">
+                            <h2 className="mb-6 text-2xl font-bold text-white uppercase">Resources</h2>
+                            <ul className="text-white font- pl-0">
                                 <li className="mb-4">
-                                    <Link to="/" className="no-underline text-gray-900 hover:text-black hover:underline">
+                                    <Link to="/" className="no-underline text-white hover:text-black hover:underline">
                                         Home
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/about" className="no-underline text-gray-900 hover:text-black hover:underline">
+                                    <Link to="/about" className="no-underline text-white hover:text-black hover:underline">
                                         About
                                     </Link>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">Follow us</h2>
-                            <ul className="text-gray-500 font- pl-0">
+                            <h2 className="mb-6 text-2xl font-bold text-white uppercase">Follow us</h2>
+                            <ul className="text-white font- pl-0">
                                 <li className="mb-4">
                                     <a
                                         href="https://github.com/KartikGupta2004/Inheritance-Proj-Patient-Database"
-                                        className="no-underline text-gray-900 hover:text-black hover:underline"
+                                        className="no-underline text-white hover:text-black hover:underline"
                                         target="_blank"
                                         rel="noreferrer"
                                     >
@@ -39,22 +39,22 @@ export default function Footer() {
                                     </a>
                                 </li>
                                 <li>
-                                    <Link to="/" className="no-underline text-gray-900 hover:text-black hover:underline">
+                                    <Link to="/" className="no-underline text-white hover:text-black hover:underline">
                                         Discord
                                     </Link>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">Legal</h2>
-                            <ul className="text-gray-500 font- pl-0">
+                            <h2 className="mb-6 text-2xl font-bold text-white uppercase">Legal</h2>
+                            <ul className="text-white font- pl-0">
                                 <li className="mb-4">
-                                    <Link to="#" className="no-underline text-gray-900 hover:text-black hover:underline">
+                                    <Link to="privacy policy and terms and conditions" className="no-underline text-white hover:text-black hover:underline">
                                         Privacy Policy
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="#" className="no-underline text-gray-900 hover:text-black hover:underline">
+                                    <Link to="privacy policy and terms and conditions" className="no-underline text-white hover:text-black hover:underline">
                                         Terms &amp; Conditions
                                     </Link>
                                 </li>
@@ -62,17 +62,17 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
-                <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8" />
+                <hr className="my-6 border-white sm:mx-auto lg:my-8" />
                 <div className="sm:flex sm:items-center sm:justify-between">
-                    <span className="text-sm text-gray-500 sm:text-center text-md sm:text-xl md:text-2xl">
+                    <span className="text-sm text-white sm:text-center text-md sm:text-xl md:text-2xl">
                         © 2023
-                        <a href="/" className="no-underline text-gray-900 hover:text-black hover:underline">
+                        <a href="/" className="no-underline text-white hover:text-black hover:underline">
                             MedVault
                         </a>
                         . All Rights Reserved.
                     </span>
                     <div className="flex mt-4 space-x-5 sm:justify-center sm:items-center sm:mt-0 ">
-                        <Link to="#" className="text-gray-500 hover:text-gray-900">
+                        <Link to="#" className="text-white hover:text-white">
                             <svg
                                 className="sm:mb-5 w-4 h-4 md:w-5 md:h-5"
                                 aria-hidden="true"
@@ -88,7 +88,7 @@ export default function Footer() {
                             </svg>
                             <span className="sr-only">Facebook page</span>
                         </Link>
-                        <Link to="#" className="text-gray-500">
+                        <Link to="#" className="text-white">
                             <svg
                                 className=" sm:mb-5 w-4 h-4 md:w-5 md:h-5"
                                 aria-hidden="true"
@@ -100,7 +100,7 @@ export default function Footer() {
                             </svg>
                             <span className="sr-only">Discord community</span>
                         </Link>
-                        <Link to="#" className="text-gray-500">
+                        <Link to="#" className="text-white">
                             <svg
                                 className="sm:mb-5 w-4 h-4 md:w-5 md:h-5"
                                 aria-hidden="true"
@@ -116,7 +116,7 @@ export default function Footer() {
                             </svg>
                             <span className="sr-only">Twitter page</span>
                         </Link>
-                        <Link to="#" className="text-gray-500">
+                        <Link to="#" className="text-white">
                             <svg
                                 className="sm:mb-5 w-4 h-4 md:w-5 md:h-5"
                                 aria-hidden="true"
@@ -132,7 +132,7 @@ export default function Footer() {
                             </svg>
                             <span className="sr-only">GitHub account</span>
                         </Link>
-                        <Link to="#" className="text-gray-500">
+                        <Link to="#" className="text-white">
                             <svg
                                 className="sm:mb-5 w-4 h-4 md:w-5 md:h-5"
                                 aria-hidden="true"

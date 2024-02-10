@@ -12,11 +12,6 @@
     object-fit: cover;
     filter: brightness(0.6);
 }
-@media (max-width:400px) {
-  #caption{
-    font-size: 10px;
-  }
-}
 .card-img-top{
   height: 35vh;
   object-fit: cover;

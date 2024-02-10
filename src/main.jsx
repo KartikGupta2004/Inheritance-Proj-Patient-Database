@@ -36,6 +36,8 @@ import AddLabTest from './Components/MedicalRecords/InsideData/AddLabTest.jsx'
 import AddAppointment from './Components/Appointment/AddAppointment.jsx'
 import News from './Components/Medical News/News.jsx'
 import { AuthContextProvider } from './Components/Context/AuthContext.jsx'
+import DoctorDashboard from './Components/Doctor/DoctorDashboard.jsx'
+import PP_TC from './Components/PP&TC.jsx'
 
 //Method 1
 // const router= createBrowserRouter([
@@ -65,7 +67,7 @@ const router= createBrowserRouter(
         <Route path='appointment' element={<Appointment/>}/>
         <Route path='addappointment' element={<AddAppointment/>}/>
         <Route path='visit' element={<MedicalVisit/>}/>
-        <Route path='addvisit' element={<MedicalVisitForm/>}/>
+        <Route path='booking' element={<MedicalVisitForm/>}/>
         <Route path='allergy' element={<Allergy/>}/>
         <Route path='addallergy' element={<AddAllergy/>}/>
         <Route path='bloodglucose' element={<BloodGlucose/>}/>
@@ -87,6 +89,8 @@ const router= createBrowserRouter(
         <Route path='addvaccine' element={<AddVaccine/>}/>
         <Route path='nearbypharmacy' element={<NearbyPharmacy/>}/>
         <Route path='medicalnews' element={<News/>}/>
+        <Route path='privacy policy and terms and conditions' element={<PP_TC/>}/>
+        <Route path='doctordashboard' element={<DoctorDashboard/>}/>
     </Route>
   )
 )

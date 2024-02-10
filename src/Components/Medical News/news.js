@@ -14,7 +14,7 @@ fetch(url)
     let something = data.articles;
     let list = [];
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 15; i++) {
       if (something[i].source.name !== "YouTube" && something[i].urlToImage !== null && something[i].description !== "") {
         list.push(something[i]);
       }

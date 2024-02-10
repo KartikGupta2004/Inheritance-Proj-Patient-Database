@@ -41,15 +41,6 @@ function Appointment() {
     </div>
     </div>
     </div>
-    <div className=' flex justify-end items-end hover:cursor-pointer'>
-    <div className='m-10 text-white bg-red-500 text-6xl w-16 lg:text-8xl lg:w-24 rounded-full'>
-    <Link
-      to="/addappointment" className='text-white'
-    >
-    <LuPlus />
-    </Link>
-    </div>
-    </div>    
     </div>
     </>
   )

@@ -8,7 +8,8 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-      'MedicalBg':"url('Assets/About_bg.jpg')"
+      'MedicalBg':"url('Assets/About_bg.jpg')",
+      'LoginBg':"url('Assets/login-bg.jpg')"
     },
     screens: {
       'Login': '1700px',
@@ -17,7 +18,8 @@ module.exports = {
       'add':'612px',
       '2000':'2000px',
       '1500':'1500px',
-      '1576':'1576px'
+      '1576':'1576px',
+      '2200':'2200px'
       },
       minHeight:{
         'loginh':'900px'
@@ -30,6 +32,7 @@ module.exports = {
       },
       width:{
         '15':'60px',
+        '500':'500px',
         '650':'650px',
         '1500':'1500px'
       }

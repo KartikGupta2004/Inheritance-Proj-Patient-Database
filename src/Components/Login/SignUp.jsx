@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSignUp } from "../Hooks/useSignUp";
 
 function SignUp() {
@@ -12,6 +12,7 @@ function SignUp() {
   });
   const [confirmPassword, setConfirmPassword] = useState("");
   const { signup, error, isLoading } = useSignUp();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -32,11 +33,12 @@ function SignUp() {
       password: "",
     });
     setConfirmPassword("");
+    navigate('/');
   };
   return (
     <>
-      <div className='flex justify-center items-center text-lg h-screen bg-MedicalBg'>
-        <div className='hidden 1500:flex flex-col justify-center items-center h-full sm:text-5xl max-w-screen-md bg-gray-700 my-10'>
+      <div className='bg-[url("Assets/signup_bg.jpg")] bg-cover flex justify-center items-center text-lg h-screen'>
+        <div className='hidden 1500:flex flex-col justify-center items-center h-full sm:text-5xl max-w-screen-md bg-teal-600 my-10'>
           <p className=' sm:text-5xl font-medium text-white'>Welcome Back!</p>
           <p className='mb-4 mt-7 text-3xl text-white'>
             {" "}
@@ -124,7 +126,7 @@ function SignUp() {
             <button
               type='submit'
               disabled={isLoading}
-              className=' bg-blue-500 text-white rounded-full sm:w-64 py-2 px-7 sm:py-4 mt-10'
+              className=' bg-blue-500 text-white rounded-xl sm:w-64 px-7 py-4 mt-10'
             >
               Sign Up
             </button>
