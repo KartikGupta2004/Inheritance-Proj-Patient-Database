@@ -4,12 +4,12 @@ import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { useAuthContext } from "../../Hooks/useAuthContext";
 const OxygenSat = () => {
   const [data, setData] = useState({
-    result:98,
-    pulse:80,
-    date:"",
-    time:"",
-    rec_note:""
-  })
+    result: 98,
+    pulse: 80,
+    date: "",
+    time: "",
+    rec_note: "",
+  });
   const { user } = useAuthContext();
   const navigate = useNavigate();
   const handleChange = (e) =>{
@@ -35,16 +35,16 @@ const OxygenSat = () => {
       console.log(`Error: ${error.error}`);
     }
   };
-  const handleSubmit = (e) =>{
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log(data);
     saveData();
     setData({
-      result:98,
-      pulse:80,
-      date:"",
-      time:"",
-      rec_note:""
+      result: 98,
+      pulse: 80,
+      date: "",
+      time: "",
+      rec_note: "",
     });
     navigate("/oxygensat", {
       state: { refreshTimestamp: Date.now() },
@@ -52,14 +52,14 @@ const OxygenSat = () => {
   }
   return (
     <>
-    <div className='bg-fuchsia-50 h-fit mx-auto'>
-    <div className="flex justify-center items-center w-full py-3 border-b-2 border-rose-400">
-      <Link exact to='/oxygensat'>
-    <MdOutlineKeyboardArrowLeft className='text-4xl ml-1 md:ml-3 sm:6xl md:text-7xl text-black'/>
-    </Link>
-        <h1 className='block text-center w-5/6 text-2xl sm:text-4xl lg:text-5xl py-4 px-8 text-rose-400 box-border font-bold mb-0 '>
-          Oxygen Saturation(SPO2)
-        </h1>
+      <div className='bg-fuchsia-50 h-fit mx-auto'>
+        <div className='flex justify-center items-center w-full py-3 border-b-2 border-rose-400'>
+          <Link exact to='/oxygensat'>
+            <MdOutlineKeyboardArrowLeft className='text-4xl ml-1 md:ml-3 sm:6xl md:text-7xl text-black' />
+          </Link>
+          <h1 className='block text-center w-5/6 text-2xl sm:text-4xl lg:text-5xl py-4 px-8 text-rose-400 box-border font-bold mb-0 '>
+            Oxygen Saturation(SPO2)
+          </h1>
         </div>
         <div className='flex justify-center items-center w-full'>
         <main className='flex justify-center items-center w-full box-border flex-col bg-stone-100'>
