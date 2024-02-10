@@ -19,7 +19,7 @@ function Family() {
     if (user) {
       getFamily();
     }
-  }, [family, user]);
+  }, [user]);
 
   const getFamily = async () => {
     try {
@@ -89,7 +89,7 @@ function Family() {
           </div>
         </div>
 
-        <div className='flex justify-center items-center'>
+        <div className='flex justify-center items-center p-4'>
           <div className='flex flex-col justify-center items-center w-full gap-3'>
             {family.length === 0 ? (
               <div className='flex justify-center items-center min-h-screen'>
@@ -122,8 +122,10 @@ function Family() {
                       />
                       <div className='flex items-center ml-6 no-underline'>
                         <div className='mb-0 text-md md:text-2xl lg:text-3xl font-medium tracking-tight text-gray-900 dark:text-white'>
-                          <p className='mb-0'>{data['family-member']}</p>
-                          <p className='mb-0 text-gray-400'>{data['description']}</p>
+                          <p className='mb-0'>{data.family_member}</p>
+                          <p className='mb-0 text-gray-400'>
+                            {data.description}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -131,7 +133,7 @@ function Family() {
                       <div className='flex mt-2 mb-3 ml-7 text-gray-500 text-xl md:text-3xl'>
                         <BsThreeDotsVertical
                           className='hover:cursor-pointer'
-                          onClick={() =>toggleDropdown(data._id)}
+                          onClick={() => toggleDropdown(data._id)}
                         />
                         {isDropdownVisible[data._id] && (
                           <div className=' text-black  absolute shadow-sm bg-white mt-12 px-2 pt-3 sm:w-40 transform translate-x-[-50px]'>

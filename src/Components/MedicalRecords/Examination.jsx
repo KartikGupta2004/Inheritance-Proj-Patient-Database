@@ -28,7 +28,7 @@ function Examination() {
     if (user) {
       getExam();
     }
-  }, [examination, user]);
+  }, [user]);
 
   const getExam = async () => {
     try {
@@ -73,7 +73,7 @@ function Examination() {
 
   const [isDropdownVisible, setDropdownVisible] = useState({ ...initState });
   const [selectedOption, setSelectedOption] = useState({ ...initOption });
-  const [showImage, setShowImage] = useState({...initShowImage});
+  const [showImage, setShowImage] = useState({ ...initShowImage });
 
   const toggleDropdown = (id) => {
     setDropdownVisible({ ...isDropdownVisible, [id]: !isDropdownVisible[id] });
@@ -108,7 +108,11 @@ function Examination() {
           </div>
         </div>
 
-        <div className='flex justify-center items-center min-h-screen'>
+        <div
+          className={`flex justify-center min-h-screen w-full p-5 ${
+            examination.length === 0 ? "items-center" : "items-start"
+          }`}
+        >
           <div className='w-full'>
             <div className='flex flex-col justify-center items-center gap-3'>
               {examination.length === 0 ? (

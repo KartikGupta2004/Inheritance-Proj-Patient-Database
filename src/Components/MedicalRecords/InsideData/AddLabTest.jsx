@@ -12,6 +12,7 @@ const LabTestForm = () => {
     rec_note: "",
     tests: [],
   });
+  const [isLoading, setIsLoading] = useState(false);
   const [testCont, setTestCont] = useState({
     test: "",
     result: "",
@@ -19,7 +20,7 @@ const LabTestForm = () => {
   });
   const [file, setFile] = useState(null);
   let imageData;
-  const {user} = useAuthContext();
+  const { user } = useAuthContext();
   const navigate = useNavigate();
   const handleAdd = (e) => {
     e.preventDefault();
@@ -98,11 +99,12 @@ const LabTestForm = () => {
       console.log(`Error: ${err}`);
     }
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if(data.tests.length === 0 || data.doctor ==="") return;
+    if (data.tests.length === 0 || data.doctor === "") return;
     console.log(data);
-    saveData();
+    setIsLoading(true);
+    await saveData();
     setData({
       date: "",
       doctor: "",
@@ -112,6 +114,11 @@ const LabTestForm = () => {
       tests: [],
     });
     setFile(null);
+    setIsLoading(false);
+    navigate("/labtest", {
+      state: { refreshTimestamp: Date.now() },
+      replace: true,
+    });
   };
   return (
     <>
@@ -305,7 +312,10 @@ const LabTestForm = () => {
                   />
                 </span>
                 <span className='flex justify-center sm:col-span-2'>
-                  <button className='rounded-full font-bold  px-5 py-4 bg-rose-400 text-white mt-3'>
+                  <button
+                    disabled={isLoading}
+                    className='rounded-full font-bold  px-5 py-4 bg-rose-400 text-white mt-3 disabled:opacity-75'
+                  >
                     Save Record
                   </button>
                 </span>

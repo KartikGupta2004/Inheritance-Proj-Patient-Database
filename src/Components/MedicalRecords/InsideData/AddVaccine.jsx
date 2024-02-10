@@ -33,7 +33,10 @@ function AddVaccine() {
     console.log(data);
     saveData(data);
     e.currentTarget.reset();
-    navigate("/vaccine");
+    navigate("/vaccine", {
+      state: { refreshTimestamp: Date.now() },
+      replace: true,
+    });
   };
   return (
     <>
@@ -51,9 +54,9 @@ function AddVaccine() {
           className='h-1/2 flex flex-col text-3xl sm:text-5xl text-start Login:ml-5 justify-center mx-auto'
         >
           <div className='mt-40 mb-20'>
-            <p className=' ml-3 text-gray-400 font-medium'>
+            <label htmlFor='title' className=' ml-3 text-gray-400 font-medium'>
               Title<span className='text-red-600'>*</span>
-            </p>
+            </label>
             <input
               className='text-2xl sm:text-5xl my-5 ml-1 border-2  border-gray-200 rounded-lg max-w-7xl '
               type='text'
@@ -63,7 +66,9 @@ function AddVaccine() {
             />
           </div>
           <div className='mb-40 mt-20'>
-            <p className=' ml-3 text-gray-400 font-medium'>Date:</p>
+            <label htmlFor='date' className=' ml-3 text-gray-400 font-medium'>
+              Date:
+            </label>
             <input
               className='text-2xl sm:text-4xl my-5 ml-1 border-2 p-6 border-gray-200 rounded-lg max-w-7xl '
               type='date'

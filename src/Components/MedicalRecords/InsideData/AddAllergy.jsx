@@ -33,7 +33,7 @@ function AddAllergy() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
@@ -41,7 +41,10 @@ function AddAllergy() {
     console.log(data);
     saveData(data);
     e.currentTarget.reset();
-    navigate("/allergy");
+    navigate("/allergy", {
+      state: { refreshTimestamp: Date.now() },
+      replace: true,
+    });
   };
   return (
     <>

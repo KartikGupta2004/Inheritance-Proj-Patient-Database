@@ -1,22 +1,54 @@
 import { React, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { useAuthContext } from "../../Hooks/useAuthContext";
 const PrescriptionForm = () => {
   const [data, setData] = useState({
     drugs: [],
-    file: null,
     date: "",
     doctor: "",
     rec_note: "",
+    imageURL: "",
+    imageID: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [file, setFile] = useState(null);
+  const navigate = useNavigate();
   const [drugTrack, setDrugTrack] = useState({
     drug: "",
     dose: "",
   });
   const { user } = useAuthContext();
+  const imageUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const response = await fetch(
+        "http://localhost:5000/api/record/addimage",
+        {
+          method: "POST",
+          headers: {
+            Accept: "*/*",
+            token: user.authToken,
+          },
+          body: formData,
+        }
+      );
+      return response.json();
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+  };
   const saveData = async () => {
     try {
+      const imageData = await imageUpload();
+      console.log(imageData);
+      setData((data) => {
+        const newData = { ...data };
+        newData["imageURL"] = imageData.imageURL;
+        newData["imageID"] = imageData.imageID;
+        return newData;
+      });
       const response = await fetch(
         "http://localhost:5000/api/record/addrecord",
         {
@@ -39,20 +71,29 @@ const PrescriptionForm = () => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
   const handleFileUpload = (e) => {
-    setData({ ...data, file: e.target.files[0] });
+    setFile(e.target.files[0]);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(data);
-    saveData();
+    if (data.drugs.length === 0) return;
+    setIsLoading(true);
+    await saveData();
     setData({
       drugs: [],
-      file: null,
       date: "",
       doctor: "",
       rec_note: "",
+      imageID: "",
+      imageURL: "",
     });
     setDrugTrack({ drug: "", dose: "" });
+    setFile(null);
+    setIsLoading(false);
+    navigate("/prescriptions", {
+      state: { refreshTimestamp: Date.now() },
+      replace: true,
+    });
   };
 
   const handleAdd = (e) => {
@@ -70,7 +111,7 @@ const PrescriptionForm = () => {
     <>
       <div className='bg-fuchsia-50 h-fit mx-auto'>
         <div className='flex justify-center items-center w-full py-3 border-b-2 border-rose-400'>
-          <Link exact to='/prescriptions'>
+          <Link exact='true' to='/prescriptions'>
             <MdOutlineKeyboardArrowLeft className='text-4xl ml-1 md:ml-3 sm:6xl md:text-7xl text-black' />
           </Link>
           <h1 className='block text-center w-5/6 text-2xl sm:text-4xl lg:text-5xl py-4 px-8 text-rose-400 box-border font-bold mb-0 '>
@@ -96,19 +137,17 @@ const PrescriptionForm = () => {
                       className='w-8 h-8'
                     />
                     <p className='text-3xl mt-4 text-gray-500'>
-                      {data.file ? "Change File" : "Upload Prescription"}
+                      {file ? "Change File" : "Upload Prescription"}
                     </p>
                     <input
                       type='file'
                       name='file'
                       id='file'
-                      accept='image/* , .pdf , .docx , .doc'
+                      accept='image/*'
                       className='hidden'
                       onChange={handleFileUpload}
                     />
-                    {data.file && (
-                      <p className='text-sm'> File: {data.file.name}</p>
-                    )}
+                    {file && <p className='text-sm'> File: {file.name}</p>}
                   </label>
                 </span>
                 <span className='flex flex-col sm:col-span-2'>
@@ -132,25 +171,25 @@ const PrescriptionForm = () => {
                       name='drug'
                       id='drug'
                       placeholder='Drug'
+                      value={drugTrack.drug}
                       onChange={(e) =>
                         setDrugTrack({ ...drugTrack, drug: e.target.value })
                       }
                       className='bg-white w-full rounded-lg form-input p-4 flex-auto text-2xl'
-                      required
                     />
                     <input
                       type='text'
                       name='dose'
                       id='dose'
                       placeholder='Dose'
+                      value={drugTrack.dose}
                       onChange={(e) =>
                         setDrugTrack({ ...drugTrack, dose: e.target.value })
                       }
                       className='bg-white w-full rounded-lg form-input p-4 flex-auto text-2xl'
-                      required
                     />
                   </div>
-                  {drugTrack.drug.toString() && (
+                  {data.drugs.toString() && (
                     <div className='bg-white rounded-lg text-2xl mt-3'>
                       <ul>
                         {data.drugs.map((drugBox, id) => {
@@ -244,7 +283,10 @@ const PrescriptionForm = () => {
                   />
                 </span>
                 <span className='flex justify-center sm:col-span-2'>
-                  <button className='rounded-full font-bold text-2xl lg:text-4xl px-5 py-4 bg-rose-400 text-white mt-3'>
+                  <button
+                    disabled={isLoading}
+                    className='rounded-full font-bold text-2xl lg:text-4xl px-5 py-4 bg-rose-400 text-white mt-3 disabled:opacity-75'
+                  >
                     Save Record
                   </button>
                 </span>

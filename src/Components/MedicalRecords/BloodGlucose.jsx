@@ -19,7 +19,7 @@ function BloodGlucose() {
     if (user) {
       getData();
     }
-  }, [data, user]);
+  }, [user]);
 
   const getData = async () => {
     try {
@@ -62,7 +62,7 @@ function BloodGlucose() {
   const [isDropdownVisible, setDropdownVisible] = useState(initDrop);
 
   const toggleDropdown = (id) => {
-    setDropdownVisible({ ...isDropdownVisible, [id]: isDropdownVisible[id] });
+    setDropdownVisible({ ...isDropdownVisible, [id]: !isDropdownVisible[id] });
   };
   return (
     <>
@@ -84,9 +84,13 @@ function BloodGlucose() {
             </div>
           </div>
         </div>
-        <div className='flex justify-center items-center min-h-screen'>
-          <div>
-            <div className='flex flex-col justify-center items-center'>
+        <div
+          className={`flex justify-center min-h-screen w-full py-5 md:px-12 ${
+            data.length === 0 ? "items-center" : "items-start"
+          }`}
+        >
+          <div className='w-full'>
+            <div className='flex flex-col justify-center items-center gap-3'>
               {data.length === 0 ? (
                 <div className='text-2xl sm:text-4xl lg:text-5xl space-y-2 '>
                   <img
@@ -102,7 +106,10 @@ function BloodGlucose() {
                 </div>
               ) : (
                 data.map((val) => (
-                  <div className='flex justify-center items-center'>
+                  <div
+                    className='flex justify-center items-center w-11/12 sm:w-4/5'
+                    key={val._id}
+                  >
                     <div className='w-4/5 h-fit p-3 md:p-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700'>
                       <div className='flex justify-between'>
                         <img
@@ -162,7 +169,10 @@ function BloodGlucose() {
                                     Share
                                   </p>
                                 </div>
-                                <div className='hover:cursor-pointer' onClick={() => handleDelete(val._id)}>
+                                <div
+                                  className='hover:cursor-pointer'
+                                  onClick={() => handleDelete(val._id)}
+                                >
                                   <p className='flex text-red-600'>
                                     <span>
                                       <RiDeleteBin6Line />

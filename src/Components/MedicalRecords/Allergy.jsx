@@ -13,11 +13,12 @@ import { useAuthContext } from "../Hooks/useAuthContext";
 function Allergy() {
   const [data, setData] = useState([]);
   const { user } = useAuthContext();
+  const initDrop = {};
   useEffect(() => {
     if (user) {
       getAllergy();
     }
-  }, [data, user]);
+  }, [user]);
 
   const getAllergy = async () => {
     try {
@@ -33,6 +34,9 @@ function Allergy() {
       );
       const responseData = await response.json();
       setData([...responseData]);
+      for(let value of data){
+        initDrop[value] = false;
+      }
     } catch (error) {
       console.log(`Error: ${error}`);
     }
@@ -54,10 +58,10 @@ function Allergy() {
       console.log(`Error: ${error}`);
     }
   };
-  const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const [isDropdownVisible, setDropdownVisible] = useState(initDrop);
 
-  const toggleDropdown = () => {
-    setDropdownVisible(!isDropdownVisible);
+  const toggleDropdown = (id) => {
+    setDropdownVisible({...isDropdownVisible, [id]:!isDropdownVisible[id]});
   };
   return (
     <>
@@ -79,7 +83,7 @@ function Allergy() {
             </div>
           </div>
         </div>
-        <div className={'flex justify-center min-h-screen w-full p-5'+ (data.length===0 ? 'items-center':'items-start')}>
+        <div className={`flex justify-center min-h-screen w-full p-5 ${data.length === 0 ? "items-center":"items-start"}`}>
           <div className='w-full h-full'>
             <div className='flex flex-col justify-center items-center w-full gap-3'>
               {data.length === 0 ? (
@@ -99,7 +103,7 @@ function Allergy() {
                 </div>
               ) : (
                 data.map((data) => (
-                  <div key={data.id} className='flex justify-center w-full'>
+                  <div key={data._id} className='flex justify-center w-full'>
                     <div className='flex h-fit justify-between items-center p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 sm:w-3/5'>
                       <div className='flex'>
                         <img
@@ -118,9 +122,9 @@ function Allergy() {
                         <div className='flex mt-2 mb-3 ml-7 text-gray-500 text-xl md:text-3xl'>
                           <BsThreeDotsVertical
                             className='hover:cursor-pointer'
-                            onClick={toggleDropdown}
+                            onClick={() =>toggleDropdown(data._id)}
                           />
-                          {isDropdownVisible && (
+                          {isDropdownVisible[data._id] && (
                             <div className=' text-black  absolute shadow-sm bg-white mt-12 px-2 pt-3 sm:w-40 transform translate-x-[-50px]'>
                               <div className='hover:cursor-pointer'>
                                 <p className='flex'>

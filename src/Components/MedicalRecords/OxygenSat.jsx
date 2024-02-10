@@ -19,7 +19,7 @@ function OxygenSat() {
     if (user) {
       getOs();
     }
-  }, [os, user]);
+  }, [user]);
 
   const getOs = async () => {
     try {
@@ -85,9 +85,13 @@ function OxygenSat() {
             </div>
           </div>
         </div>
-        <div className='flex justify-center items-center min-h-screen'>
-          <div>
-            <div className='flex flex-col justify-center items-center'>
+        <div
+          className={`flex justify-center min-h-screen w-full p-5 ${
+            os.length === 0 ? "items-center" : "items-start"
+          }`}
+        >
+          <div className='w-screen'>
+            <div className='flex flex-col justify-center items-center w-full gap-3'>
               {os.length === 0 ? (
                 <div className='text-2xl sm:text-4xl lg:text-5xl space-y-2 '>
                   <img
@@ -105,7 +109,7 @@ function OxygenSat() {
                 os.map((os) => (
                   <div
                     key={os._id}
-                    className='flex justify-center items-center'
+                    className='flex justify-center items-center sm:w-4/5'
                   >
                     <div className='w-4/5 h-fit p-3 md:p-4 sm:p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700'>
                       <div className='flex justify-between'>

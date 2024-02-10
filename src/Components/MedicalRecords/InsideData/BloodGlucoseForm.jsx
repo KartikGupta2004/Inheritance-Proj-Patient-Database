@@ -48,7 +48,10 @@ const BloodGlucoseForm = () => {
       time: "",
       rec_note: "",
     });
-    navigate("/bloodglucose");
+    navigate("/bloodglucose", {
+      state: { refreshTimestamp: Date.now() },
+      replace: true,
+    });
   };
   return (
     <>

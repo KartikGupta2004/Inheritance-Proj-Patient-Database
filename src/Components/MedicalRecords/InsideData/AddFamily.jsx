@@ -32,17 +32,20 @@ function AddFamily() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
-    if (!data["family-member"] || !data["description"]) return;
+    if (!data["family_member"] || !data["description"]) return;
     console.log(data);
     saveData(data);
     e.currentTarget.reset();
-    // navigate("/familyhistory");
+    navigate("/familyhistory", {
+      state: { refreshTimestamp: Date.now() },
+      replace: true,
+    });
   };
   return (
     <>
       <div className='bg-fuchsia-50 h-fit mx-auto'>
         <div className=' py-3 flex flex-wrap border-b-2 border-black items-center justify-start '>
-          <Link exact to='/familyhistory'>
+          <Link exact='true' to='/familyhistory'>
             <MdOutlineKeyboardArrowLeft className='text-4xl ml-1 md:ml-3 sm:6xl md:text-7xl text-black' />
           </Link>
           <p className='text-2xl mb-0 sm:text-4xl lg:text-6xl lg:pl-40'>

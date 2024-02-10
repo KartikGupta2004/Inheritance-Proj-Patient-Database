@@ -21,6 +21,8 @@ const Examination = () => {
 
   let imageData;
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const [file, setFile] = useState(null);
 
   const { user } = useAuthContext();
@@ -123,10 +125,12 @@ const Examination = () => {
       console.log(`Error: ${err}`);
     }
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(data);
-    saveData();
+    if (data.symptoms.length === 0 || data.diagnoses.length === 0) return;
+    setIsLoading(true);
+    await saveData();
     setData({
       symptoms: [],
       diagnoses: [],
@@ -142,7 +146,11 @@ const Examination = () => {
       rec_note: "",
     });
     setFile(null);
-    navigate("/examination");
+    setIsLoading(false);
+    navigate("/examination", {
+      state: { refreshTimestamp: Date.now() },
+      replace: true,
+    });
   };
   return (
     <>
@@ -462,7 +470,10 @@ const Examination = () => {
                   />
                 </span>
                 <span className='flex justify-center sm:col-span-2'>
-                  <button className='rounded-full font-bold text-3xl px-5 py-4 bg-rose-400 text-white mt-3'>
+                  <button
+                    disabled={isLoading}
+                    className='rounded-full font-bold text-3xl px-5 py-4 bg-rose-400 text-white mt-3 disabled:opacity-75'
+                  >
                     Save Record
                   </button>
                 </span>
